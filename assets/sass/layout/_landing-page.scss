@@ -1,4 +1,6 @@
 .page-container{
+    height: 100vh;
+    width: 100vw;
 
     .page-menu{
         position: absolute;
@@ -9,16 +11,15 @@
         background-color: rgba(0, 0, 0, 0.9);
         z-index: 5;
         top: 0;
-        left: 0;
-        bottom: 0;
         width: 100%;
+        height: 100%;
 
         .page-title,
         .start-btn{
             background-color: rgb(29, 14, 0);
             color: rgb(187, 91, 2);
             padding: 1em 2em;
-            font-size: 2rem;
+            font-size: 1.5rem;
             border: 0.15em solid black;
         }
         
@@ -43,108 +44,65 @@
     }
 
     .board-container{
-        background-color: grey;
-        position: relative;
-        margin: 10em auto 0 auto;
+        display: block;
+        width: 100%;
+        height: 85%;
+        max-height: 450px;
+        max-width: 450px;
+        margin: auto;
         display: flex;
         flex-wrap: wrap;
-        width: 1000px;
-        height: 1000px;
-        box-shadow: 0 0 15px rgb(66, 66, 66);
+        justify-content: center;
 
-        .page-numbers{
-            .numbers{
-                position: absolute;
-                display: flex;
-                flex-direction: column-reverse;
-                align-items: center;
-                justify-content: center;
-                flex-wrap: wrap;
-                width: 125px;
-                div{
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 125px;
-                    height: 125px;
-                    p{
-                        height: fit-content;
-                        margin: 0;
-                        font-size: 3rem;
-                    }
-                }
-            }
-
-            .numbers:first-child{
-                left: -125px;
-            }
-            .numbers:last-child{
-                right: -125px;
-                div{
-                    p{
-                        transform: rotateX(180deg);
-                    }
-                }
+        .letters{
+            display: flex;
+            flex: 0 0 80%;
+            padding: 0 10%;
+            justify-content: space-around;
+            text-align: center;
+        }
+        .letters:first-child{
+            div{
+                height: fit-content;
+                margin-top: auto;
+                margin-bottom: 0;
             }
         }
-
-        .page-letters{
-            .letters{
-                position: absolute;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-wrap: wrap;
-                width: 1000px;
-                div{
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 125px;
-                    height: 125px;
-                    p{
-                        height: fit-content;
-                        margin: 0;
-                        font-size: 3rem;
-                    }
-                }
-            }
-
-            .letters:nth-child(1){
-                bottom: -125px;
-            }
-            .letters:nth-child(2){
-                top: -125px;
-                div{
-                    p{
-                        transform: rotateX(180deg);
-                    }
-                }
-            }
+        .numbers{
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: space-around;
+            flex: 0 0 10%;
+            text-align: center;
         }
-
         .playfield{
+            flex: 0 0 80%;
+            height: 100%;
             .board-row{
                 display: flex;
                 width: 100%;
-                height: 125px;
+                height: 12.5%;
                 .block{
                     position: relative;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 125px;
-                    height: 125px;
+                    height: 100%;
+                    width: 12.5%;
+                    
+                    .selector-img,
                     .chess-piece-pic{
                         width: 100%;
+                        height: 100%;
                     }
+
                     .chess-piece-pic:hover{
                         background-color: rgba(255, 255, 0, 0.349);
                     }
+
                     .selector-img{
-                        width: 125px;
-                        height: 125px;
                         position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        // height: 100%;
                         opacity: 0.5;
                         animation-name: selectorRotation;
                         animation-duration: 2s;
@@ -179,202 +137,3 @@
         }
     }
 }
-
-
-// Mobil försök
-
-
-// .page-container{
-//     orientation: landscape;
-//     height: fit-content;
-//     .page-menu{
-//         position: absolute;
-//         display: flex;
-//         flex-direction: column;
-//         justify-content: center;
-//         align-items: center;
-//         background-color: rgba(0, 0, 0, 0.9);
-//         z-index: 5;
-//         top: 0;
-//         left: 0;
-//         bottom: 0;
-//         width: 100%;
-
-//         .page-title,
-//         .start-btn{
-//             background-color: rgb(29, 14, 0);
-//             color: rgb(187, 91, 2);
-//             padding: 1em 2em;
-//             font-size: 2rem;
-//             border: 0.15em solid black;
-//         }
-        
-//         .page-title{
-//             border-radius: 0.25em;
-//         }
-        
-//         .start-btn{
-//             border-radius: 2em;
-//         }
-
-//         .start-btn:hover{
-//             background-color: rgb(59, 29, 0);
-//         }
-//     }
-
-//     .page-cover{
-//         position: absolute;
-//         z-index: 2;
-//         width: 100%;
-//         height: 100vh;
-//     }
-
-//     .board-container{
-//         background-color: grey;
-//         position: relative;
-//         margin: 2em auto 0 auto;
-//         display: flex;
-//         flex-wrap: wrap;
-//         width: 100vw;
-//         height: 10;
-//         box-shadow: 0 0 15px rgb(66, 66, 66);
-//         height: 25vh;
-
-//         .page-numbers{
-//             .numbers{
-//                 position: absolute;
-//                 display: flex;
-//                 flex-direction: column-reverse;
-//                 align-items: center;
-//                 justify-content: center;
-//                 flex-wrap: wrap;
-//                 width: 5%;
-//                 div{
-//                     display: flex;
-//                     align-items: center;
-//                     justify-content: center;
-//                     width: 100%;
-//                     height: 100%;
-//                     p{
-//                         height: fit-content;
-//                         margin: 0;
-//                         font-size: 3rem;
-//                     }
-//                 }
-//             }
-
-//             .numbers:first-child{
-//                 left: -125px;
-//             }
-//             .numbers:last-child{
-//                 right: -125px;
-//                 div{
-//                     p{
-//                         transform: rotateX(180deg);
-//                     }
-//                 }
-//             }
-//         }
-
-//         .page-letters{
-//             .letters{
-//                 position: absolute;
-//                 display: flex;
-//                 align-items: center;
-//                 justify-content: center;
-//                 flex-wrap: wrap;
-//                 width: 35%;
-//                 left: 28%;
-//                 div{
-//                     display: flex;
-//                     align-items: center;
-//                     justify-content: center;
-//                     width: 12%;
-//                     height: 12%;
-//                     p{
-//                         height: fit-content;
-//                         margin: 0;
-//                         font-size: 1.5rem;
-//                     }
-//                 }
-//             }
-
-//             .letters:nth-child(1){
-//                 top: 312px;
-//             }
-
-//             .letters:nth-child(2){
-//                 top: -30px;
-//                 div{
-//                     p{
-//                         transform: rotateX(180deg);
-//                     }
-//                 }
-//             }
-//         }
-
-//         .playfield{
-//             height: 42%;
-//             width: 42%;
-//             margin: 0 auto 0 auto;
-//             .board-row{
-//                 display: flex;
-//                 width: 100%;
-//                 height: 100%;
-//                 .block{
-//                     position: relative;
-//                     display: flex;
-//                     justify-content: center;
-//                     align-items: center;
-//                     width: 10%;
-//                     height: 100%;
-//                     .chess-piece-pic{
-//                         width: 100%;
-//                     }
-//                     .chess-piece-pic:hover{
-//                         background-color: rgba(255, 255, 0, 0.349);
-//                     }
-//                     .selector-img{
-//                         width: 125px;
-//                         height: 125px;
-//                         position: absolute;
-//                         opacity: 0.5;
-//                         animation-name: selectorRotation;
-//                         animation-duration: 2s;
-//                         animation-timing-function: linear;
-//                         animation-iteration-count: infinite;
-//                     }
-
-//                     .selector-img:hover{
-//                         background-color: #fff;
-//                         opacity: 0.5;
-//                         border-radius: 50%;
-//                     }
-
-//                     @keyframes selectorRotation{
-//                         from{transform: rotateZ(0);}
-//                         to{transform: rotateZ(360deg);}
-//                     }
-//                 }
-//             }
-//             .board-row:nth-child(odd) .block:nth-child(odd){
-//                 background-color: rgb(187, 91, 2);
-//             }
-//             .board-row:nth-child(odd) .block:nth-child(even){
-//                 background-color: rgb(59, 29, 0);
-//             }
-//             .board-row:nth-child(even) .block:nth-child(odd){
-//                 background-color: rgb(59, 29, 0);
-//             }
-//             .board-row:nth-child(even) .block:nth-child(even){
-//                 background-color: rgb(187, 91, 2);
-//             }
-//         }
-//     }
-// }
-
-// @media screen and (orientation: portrait) {
-//     .page-container {
-//       width: 1024px;
-//     }
-// }

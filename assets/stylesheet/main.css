@@ -1,3 +1,7 @@
+.page-container {
+  height: 100vh;
+  width: 100vw;
+}
 .page-container .page-menu {
   position: absolute;
   display: flex;
@@ -7,16 +11,15 @@
   background-color: rgba(0, 0, 0, 0.9);
   z-index: 5;
   top: 0;
-  left: 0;
-  bottom: 0;
   width: 100%;
+  height: 100%;
 }
 .page-container .page-menu .page-title,
 .page-container .page-menu .start-btn {
   background-color: rgb(29, 14, 0);
   color: rgb(187, 91, 2);
   padding: 1em 2em;
-  font-size: 2rem;
+  font-size: 1.5rem;
   border: 0.15em solid black;
 }
 .page-container .page-menu .page-title {
@@ -35,101 +38,64 @@
   height: 100vh;
 }
 .page-container .board-container {
-  background-color: grey;
-  position: relative;
-  margin: 10em auto 0 auto;
+  display: block;
+  width: 100%;
+  height: 85%;
+  max-height: 450px;
+  max-width: 450px;
+  margin: auto;
   display: flex;
   flex-wrap: wrap;
-  width: 1000px;
-  height: 1000px;
-  box-shadow: 0 0 15px rgb(66, 66, 66);
+  justify-content: center;
 }
-.page-container .board-container .page-numbers .numbers {
-  position: absolute;
+.page-container .board-container .letters {
+  display: flex;
+  flex: 0 0 80%;
+  padding: 0 10%;
+  justify-content: space-around;
+  text-align: center;
+}
+.page-container .board-container .letters:first-child div {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin-top: auto;
+  margin-bottom: 0;
+}
+.page-container .board-container .numbers {
   display: flex;
   flex-direction: column-reverse;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 125px;
+  justify-content: space-around;
+  flex: 0 0 10%;
+  text-align: center;
 }
-.page-container .board-container .page-numbers .numbers div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 125px;
-  height: 125px;
-}
-.page-container .board-container .page-numbers .numbers div p {
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  margin: 0;
-  font-size: 3rem;
-}
-.page-container .board-container .page-numbers .numbers:first-child {
-  left: -125px;
-}
-.page-container .board-container .page-numbers .numbers:last-child {
-  right: -125px;
-}
-.page-container .board-container .page-numbers .numbers:last-child div p {
-  transform: rotateX(180deg);
-}
-.page-container .board-container .page-letters .letters {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 1000px;
-}
-.page-container .board-container .page-letters .letters div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 125px;
-  height: 125px;
-}
-.page-container .board-container .page-letters .letters div p {
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  margin: 0;
-  font-size: 3rem;
-}
-.page-container .board-container .page-letters .letters:nth-child(1) {
-  bottom: -125px;
-}
-.page-container .board-container .page-letters .letters:nth-child(2) {
-  top: -125px;
-}
-.page-container .board-container .page-letters .letters:nth-child(2) div p {
-  transform: rotateX(180deg);
+.page-container .board-container .playfield {
+  flex: 0 0 80%;
+  height: 100%;
 }
 .page-container .board-container .playfield .board-row {
   display: flex;
   width: 100%;
-  height: 125px;
+  height: 12.5%;
 }
 .page-container .board-container .playfield .board-row .block {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 125px;
-  height: 125px;
+  height: 100%;
+  width: 12.5%;
 }
+.page-container .board-container .playfield .board-row .block .selector-img,
 .page-container .board-container .playfield .board-row .block .chess-piece-pic {
   width: 100%;
+  height: 100%;
 }
 .page-container .board-container .playfield .board-row .block .chess-piece-pic:hover {
   background-color: rgba(255, 255, 0, 0.349);
 }
 .page-container .board-container .playfield .board-row .block .selector-img {
-  width: 125px;
-  height: 125px;
   position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   opacity: 0.5;
   -webkit-animation-name: selectorRotation;
           animation-name: selectorRotation;
@@ -181,5 +147,4 @@ html, body {
 
 body {
   background-color: #d6d6d6;
-  width: 100%;
 }/*# sourceMappingURL=main.css.map */
