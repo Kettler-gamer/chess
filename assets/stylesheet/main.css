@@ -1,0 +1,185 @@
+.page-container .page-menu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+.page-container .page-menu .page-title,
+.page-container .page-menu .start-btn {
+  background-color: rgb(29, 14, 0);
+  color: rgb(187, 91, 2);
+  padding: 1em 2em;
+  font-size: 2rem;
+  border: 0.15em solid black;
+}
+.page-container .page-menu .page-title {
+  border-radius: 0.25em;
+}
+.page-container .page-menu .start-btn {
+  border-radius: 2em;
+}
+.page-container .page-menu .start-btn:hover {
+  background-color: rgb(59, 29, 0);
+}
+.page-container .page-cover {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 100vh;
+}
+.page-container .board-container {
+  background-color: grey;
+  position: relative;
+  margin: 10em auto 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  width: 1000px;
+  height: 1000px;
+  box-shadow: 0 0 15px rgb(66, 66, 66);
+}
+.page-container .board-container .page-numbers .numbers {
+  position: absolute;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 125px;
+}
+.page-container .board-container .page-numbers .numbers div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 125px;
+  height: 125px;
+}
+.page-container .board-container .page-numbers .numbers div p {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin: 0;
+  font-size: 3rem;
+}
+.page-container .board-container .page-numbers .numbers:first-child {
+  left: -125px;
+}
+.page-container .board-container .page-numbers .numbers:last-child {
+  right: -125px;
+}
+.page-container .board-container .page-numbers .numbers:last-child div p {
+  transform: rotateX(180deg);
+}
+.page-container .board-container .page-letters .letters {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 1000px;
+}
+.page-container .board-container .page-letters .letters div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 125px;
+  height: 125px;
+}
+.page-container .board-container .page-letters .letters div p {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin: 0;
+  font-size: 3rem;
+}
+.page-container .board-container .page-letters .letters:nth-child(1) {
+  bottom: -125px;
+}
+.page-container .board-container .page-letters .letters:nth-child(2) {
+  top: -125px;
+}
+.page-container .board-container .page-letters .letters:nth-child(2) div p {
+  transform: rotateX(180deg);
+}
+.page-container .board-container .playfield .board-row {
+  display: flex;
+  width: 100%;
+  height: 125px;
+}
+.page-container .board-container .playfield .board-row .block {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 125px;
+  height: 125px;
+}
+.page-container .board-container .playfield .board-row .block .chess-piece-pic {
+  width: 100%;
+}
+.page-container .board-container .playfield .board-row .block .chess-piece-pic:hover {
+  background-color: rgba(255, 255, 0, 0.349);
+}
+.page-container .board-container .playfield .board-row .block .selector-img {
+  width: 125px;
+  height: 125px;
+  position: absolute;
+  opacity: 0.5;
+  -webkit-animation-name: selectorRotation;
+          animation-name: selectorRotation;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+.page-container .board-container .playfield .board-row .block .selector-img:hover {
+  background-color: #fff;
+  opacity: 0.5;
+  border-radius: 50%;
+}
+@-webkit-keyframes selectorRotation {
+  from {
+    transform: rotateZ(0);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+@keyframes selectorRotation {
+  from {
+    transform: rotateZ(0);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+.page-container .board-container .playfield .board-row:nth-child(odd) .block:nth-child(odd) {
+  background-color: rgb(187, 91, 2);
+}
+.page-container .board-container .playfield .board-row:nth-child(odd) .block:nth-child(even) {
+  background-color: rgb(59, 29, 0);
+}
+.page-container .board-container .playfield .board-row:nth-child(even) .block:nth-child(odd) {
+  background-color: rgb(59, 29, 0);
+}
+.page-container .board-container .playfield .board-row:nth-child(even) .block:nth-child(even) {
+  background-color: rgb(187, 91, 2);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #d6d6d6;
+  width: 100%;
+}/*# sourceMappingURL=main.css.map */

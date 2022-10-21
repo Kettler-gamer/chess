@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chess</title>
+    <meta
+      name="description"
+      content="Welcome to chess! Here you can play a game against a dumb AI." />
+    <link rel="icon" href="./favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="assets/stylesheet/main.css" />
+  </head>
+  <body>
+    <div class="page-container">
+      <div class="page-menu">
+        <h1 class="page-title">Welcome to Chess!</h1>
+        <button class="start-btn" onclick="startGame()">Start</button>
+        <button class="start-btn" hidden onclick="restartGame()">
+          Restart
+        </button>
+      </div>
+      <div class="page-cover"></div>
+      <div class="board-container">
+        <div class="page-numbers">
+          <div class="numbers">
+            <div><p>1</p></div>
+            <div><p>2</p></div>
+            <div><p>3</p></div>
+            <div><p>4</p></div>
+            <div><p>5</p></div>
+            <div><p>6</p></div>
+            <div><p>7</p></div>
+            <div><p>8</p></div>
+          </div>
+          <div class="numbers">
+            <div><p>1</p></div>
+            <div><p>2</p></div>
+            <div><p>3</p></div>
+            <div><p>4</p></div>
+            <div><p>5</p></div>
+            <div><p>6</p></div>
+            <div><p>7</p></div>
+            <div><p>8</p></div>
+          </div>
+        </div>
+        <div class="page-letters">
+          <div class="letters">
+            <div><p>A</p></div>
+            <div><p>B</p></div>
+            <div><p>C</p></div>
+            <div><p>D</p></div>
+            <div><p>E</p></div>
+            <div><p>F</p></div>
+            <div><p>G</p></div>
+            <div><p>H</p></div>
+          </div>
+          <div class="letters">
+            <div><p>A</p></div>
+            <div><p>B</p></div>
+            <div><p>C</p></div>
+            <div><p>D</p></div>
+            <div><p>E</p></div>
+            <div><p>F</p></div>
+            <div><p>G</p></div>
+            <div><p>H</p></div>
+          </div>
+        </div>
+        <div class="playfield">
+          <div class="board-row">
+            <div class="block" id="A-8"></div>
+            <div class="block" id="B-8"></div>
+            <div class="block" id="C-8"></div>
+            <div class="block" id="D-8"></div>
+            <div class="block" id="E-8"></div>
+            <div class="block" id="F-8"></div>
+            <div class="block" id="G-8"></div>
+            <div class="block" id="H-8"></div>
+          </div>
+          <div class="board-row">
+            <div class="block" id="A-7"></div>
+            <div class="block" id="B-7"></div>
+            <div class="block" id="C-7"></div>
+            <div class="block" id="D-7"></div>
+            <div class="block" id="E-7"></div>
+            <div class="block" id="F-7"></div>
+            <div class="block" id="G-7"></div>
+            <div class="block" id="H-7"></div>
+          </div>
+          <div class="board-row">
+            <div class="block" id="A-6"></div>
+            <div class="block" id="B-6"></div>
+            <div class="block" id="C-6"></div>
+            <div class="block" id="D-6"></div>
+            <div class="block" id="E-6"></div>
+            <div class="block" id="F-6"></div>
+            <div class="block" id="G-6"></div>
+            <div class="block" id="H-6"></div>
+          </div>
+          <div class="board-row">
+            <div class="block" id="A-5"></div>
+            <div class="block" id="B-5"></div>
+            <div class="block" id="C-5"></div>
+            <div class="block" id="D-5"></div>
+            <div class="block" id="E-5"></div>
+            <div class="block" id="F-5"></div>
+            <div class="block" id="G-5"></div>
+            <div class="block" id="H-5"></div>
+          </div>
+          <div class="board-row">
+            <div class="block" id="A-4"></div>
+            <div class="block" id="B-4"></div>
+            <div class="block" id="C-4"></div>
+            <div class="block" id="D-4"></div>
+            <div class="block" id="E-4"></div>
+            <div class="block" id="F-4"></div>
+            <div class="block" id="G-4"></div>
+            <div class="block" id="H-4"></div>
+          </div>
+          <div class="board-row">
+            <div class="block" id="A-3"></div>
+            <div class="block" id="B-3"></div>
+            <div class="block" id="C-3"></div>
+            <div class="block" id="D-3"></div>
+            <div class="block" id="E-3"></div>
+            <div class="block" id="F-3"></div>
+            <div class="block" id="G-3"></div>
+            <div class="block" id="H-3"></div>
+          </div>
+          <div class="board-row">
+            <div class="block" id="A-2"></div>
+            <div class="block" id="B-2"></div>
+            <div class="block" id="C-2"></div>
+            <div class="block" id="D-2"></div>
+            <div class="block" id="E-2"></div>
+            <div class="block" id="F-2"></div>
+            <div class="block" id="G-2"></div>
+            <div class="block" id="H-2"></div>
+          </div>
+          <div class="board-row">
+            <div class="block" id="A-1"></div>
+            <div class="block" id="B-1"></div>
+            <div class="block" id="C-1"></div>
+            <div class="block" id="D-1"></div>
+            <div class="block" id="E-1"></div>
+            <div class="block" id="F-1"></div>
+            <div class="block" id="G-1"></div>
+            <div class="block" id="H-1"></div>
+          </div>
+        </div>
+        <script src="assets/scripts/chess.js" defer></script>
+      </div>
+    </div>
+  </body>
+</html>
