@@ -1,6 +1,8 @@
 .page-container {
-  height: 100vh;
+  height: 100%;
   width: 100vw;
+  font-weight: 1000;
+  font-size: 1.2rem;
 }
 .page-container .page-menu {
   position: absolute;
@@ -35,59 +37,63 @@
   position: absolute;
   z-index: 2;
   width: 100%;
-  height: 100vh;
+  height: 50%;
 }
 .page-container .board-container {
+  position: relative;
   display: block;
-  width: 100%;
-  height: 85%;
-  max-height: 450px;
-  max-width: 450px;
-  margin: auto;
+  width: 360px;
+  margin: 20vh auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 .page-container .board-container .letters {
   display: flex;
-  flex: 0 0 80%;
-  padding: 0 10%;
+  flex: 0 0 320px;
+  height: 30px;
+  padding: 0 20px;
   justify-content: space-around;
+  align-items: center;
   text-align: center;
 }
-.page-container .board-container .letters:first-child div {
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  margin-top: auto;
-  margin-bottom: 0;
-}
 .page-container .board-container .letters:first-child div p {
+  margin: 0;
   transform: rotateZ(180deg);
 }
 .page-container .board-container .numbers {
   display: flex;
   flex-direction: column-reverse;
   justify-content: space-around;
-  flex: 0 0 10%;
+  flex: 0 0 20px;
   text-align: center;
+}
+.page-container .board-container .numbers div p {
+  margin: 0;
 }
 .page-container .board-container .numbers:nth-child(4) div p {
   transform: rotateZ(180deg);
 }
 .page-container .board-container .playfield {
-  flex: 0 0 80%;
-  height: 100%;
+  flex: 0 0 318px;
+  height: 318px;
+  box-shadow: 0 0 10px black;
+}
+.page-container .board-container .playfield .board-row .block:not(:last-child) {
+  border-right: 2px solid #85560f;
+}
+.page-container .board-container .playfield .board-row:not(:last-child) .block {
+  border-bottom: 2px solid #85560f;
 }
 .page-container .board-container .playfield .board-row {
   display: flex;
   width: 100%;
-  height: 12.5%;
+  height: 40px;
 }
 .page-container .board-container .playfield .board-row .block {
   position: relative;
-  height: 100%;
-  width: 12.5%;
+  height: 38px;
+  width: 38px;
 }
 .page-container .board-container .playfield .board-row .block .selector-img,
 .page-container .board-container .playfield .board-row .block .chess-piece-pic {
@@ -146,27 +152,68 @@
   background-color: rgb(187, 91, 2);
 }
 
-@media screen and (min-width: 1200px) and (min-height: 1200px) {
+@media screen and (min-width: 768px) {
   .page-container {
     font-size: 2rem;
   }
   .page-container .board-container {
     max-width: none;
+    width: 750px;
+    margin: 10vh auto;
+  }
+  .page-container .board-container .letters {
+    height: 75px;
+    padding: 0 50px;
+    flex: 0 0 650px;
+  }
+  .page-container .board-container .numbers {
+    flex: 0 1 50px;
+  }
+  .page-container .board-container .playfield {
+    height: 645px;
+    width: 650px;
+  }
+  .page-container .board-container .playfield .board-row .block:not(:last-child) {
+    border-right: 5px solid #85560f;
+  }
+  .page-container .board-container .playfield .board-row:not(:last-child) .block {
+    border-bottom: 5px solid #85560f;
+  }
+  .page-container .board-container .playfield .board-row {
+    height: 81.25px;
+  }
+  .page-container .board-container .playfield .board-row .block {
+    width: 76.25px;
+    height: 76.25px;
+  }
+}
+@media screen and (min-width: 1200px) and (min-height: 1200px) {
+  .page-container {
+    font-size: 2rem;
+    width: 100%;
+  }
+  .page-container .board-container {
+    max-width: none;
+    margin: 7vh auto;
     width: 1200px;
+  }
+  .page-container .board-container .letters {
+    flex: 0 0 1000px;
+    padding: 0 100px;
   }
   .page-container .board-container .numbers {
     flex: 0 1 8%;
   }
   .page-container .board-container .playfield {
-    height: 1000px;
+    height: 995px;
     width: 1000px;
   }
   .page-container .board-container .playfield .board-row {
     height: 125px;
   }
   .page-container .board-container .playfield .board-row .block {
-    width: 125px;
-    height: 125px;
+    width: 120px;
+    height: 120px;
   }
 }
 html, body {
