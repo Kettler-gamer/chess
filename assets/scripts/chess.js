@@ -2,11 +2,11 @@ const playfield = document.querySelector(".playfield");
 const pageMenu = document.querySelector(".page-menu");
 const jsonData = fetch("./assets/json/chessPieceData.json");
 
-const blackPieces = [];
+const AIPieces = [];
 
-let yellowPieceTurn = true;
+let AITurn = true;
 
-let chessPieces;
+let chessPieces, playerIsWhite;
 
 getData();
 
@@ -20,10 +20,8 @@ checkChessPieces();
 
 function checkChessPieces() {
   if (chessPieces === undefined) {
-    console.log("chessPieces undefined");
-    setTimeout(checkChessPieces, 1000);
+    setTimeout(checkChessPieces, 100);
   } else {
-    console.log("chessPieces NOT undefined");
     pageMenu.children[0].hidden = true;
     pageMenu.children[1].hidden = false;
     pageMenu.children[1].style = "";
@@ -33,17 +31,36 @@ function checkChessPieces() {
 
 const pageCover = document.querySelector(".page-cover");
 
+function startButtonClick() {
+  pageMenu.children[1].hidden = true;
+  pageMenu.children[2].hidden = true;
+  pageMenu.children[3].hidden = true;
+  pageMenu.children[4].hidden = false;
+}
+
+function playAsWhite(choice) {
+  if (choice) {
+    playfield.parentElement.style = "";
+  } else {
+    playfield.parentElement.style = "transform: rotateZ(180deg)";
+  }
+  playerIsWhite = choice;
+  startGame();
+}
+
 function startGame() {
   pageMenu.style = "visibility: hidden;";
   setTimeout(setUpblackPiece, 0);
 }
 
-function restartGame() {
+function restartGameClick() {
   pageCover.style = "";
   removeAllPieces();
-  yellowPieceTurn = true;
+  AITurn = true;
   it = 0;
-  startGame();
+  pageMenu.children[1].hidden = true;
+  pageMenu.children[3].hidden = true;
+  pageMenu.children[4].hidden = false;
 }
 
 function removeAllPieces() {
@@ -51,7 +68,6 @@ function removeAllPieces() {
     for (let j = 0; j < playfield.children[i].childElementCount; j++) {
       const element = playfield.children[i].children[j];
       if (element.childElementCount === 0) continue;
-
       element.firstChild.remove();
     }
   }
@@ -59,6 +75,7 @@ function removeAllPieces() {
 
 let blackPieceTimer = 85,
   it = 0;
+
 function setUpblackPiece() {
   if (it === 16) {
     setTimeout(setUpYellowPieces, 0);
@@ -70,8 +87,13 @@ function setUpblackPiece() {
   const piece = createBasicPiece(chessPieces[it].id, chessPieces[it].img);
   piece.style = "scale: -1";
 
+  if (!playerIsWhite) {
+    piece.addEventListener("click", onChessPieceClick);
+  } else {
+    AIPieces.push(piece);
+  }
+
   block.append(piece);
-  blackPieces.push(piece);
 
   it++;
 
@@ -81,13 +103,19 @@ function setUpblackPiece() {
 function setUpYellowPieces() {
   if (it === 32) {
     pageCover.style = "visibility: hidden";
+    if (!playerIsWhite) switchTurn();
     return;
   }
 
   const block = document.querySelector("#" + chessPieces[it].startBlock);
 
   const piece = createBasicPiece(chessPieces[it].id, chessPieces[it].img);
-  piece.addEventListener("click", onChessPieceClick);
+
+  if (playerIsWhite) {
+    piece.addEventListener("click", onChessPieceClick);
+  } else {
+    AIPieces.push(piece);
+  }
 
   block.append(piece);
 
@@ -137,7 +165,11 @@ function checkPieceAlts(target, id) {
 function onChessPieceClick(event) {
   const target = event.target;
   const id = target.id;
-  if (!yellowPieceTurn && id.includes("gul")) return;
+  if (
+    (!playerIsWhite && id.includes("gul")) ||
+    (playerIsWhite && id.includes("svart"))
+  )
+    return;
   resetPlayfield();
   checkPieceAlts(target, id);
 }
@@ -338,7 +370,8 @@ function getNumsFromParentId(parentElement) {
 }
 
 function addElementToMoveBlocks(element, id) {
-  !id.includes("svart") && element.append(createSelectorImg("Green"));
+  const pieceCheck = playerIsWhite ? "svart" : "gul";
+  !id.includes(pieceCheck) && element.append(createSelectorImg("Green"));
 
   moveBlocks.push({
     element: element,
@@ -358,7 +391,8 @@ function createSelectorImg(color) {
 }
 
 function addElementToAttackBlocks(element, id) {
-  !id.includes("svart") && element.append(createSelectorImg("Red"));
+  const pieceCheck = playerIsWhite ? "svart" : "gul";
+  !id.includes(pieceCheck) && element.append(createSelectorImg("Red"));
 
   attackBlocks.push({
     element: element,
@@ -395,14 +429,14 @@ function attackHere(pieceId, blockId) {
 }
 
 function AIBlackMove() {
-  for (let i = 0; i < blackPieces.length; i++) {
-    const id = blackPieces[i].id;
+  for (let i = 0; i < AIPieces.length; i++) {
+    const id = AIPieces[i].id;
 
-    if (blackPieces[i].parentElement === null) {
-      blackPieces.splice(i, 1);
+    if (AIPieces[i].parentElement === null) {
+      AIPieces.splice(i, 1);
       i--;
     } else {
-      checkPieceAlts(blackPieces[i], id);
+      checkPieceAlts(AIPieces[i], id);
     }
   }
 
@@ -416,15 +450,15 @@ function AIBlackMove() {
     moveBlocks[rand].func();
   }
 
-  yellowPieceTurn = true;
+  AITurn = true;
 }
 
 function switchTurn() {
   if (winConditionMet()) {
-    yellowPieceTurn = false;
+    AITurn = false;
   } else {
-    yellowPieceTurn = !yellowPieceTurn;
-    if (yellowPieceTurn === false) {
+    AITurn = !AITurn;
+    if (AITurn === false) {
       setTimeout(AIBlackMove, 1000);
     }
   }
@@ -435,12 +469,20 @@ function winConditionMet() {
   const yellowKing = document.querySelector("#kung-gul");
 
   if (blackKing === null || yellowKing === null) {
-    const message = blackKing === null ? "Player Wins!" : "AI wins!";
+    let message;
+
+    if (playerIsWhite) {
+      message = blackKing === null ? "Player Wins!" : "AI Wins!";
+    } else {
+      message = yellowKing === null ? "Player Wins!" : "AI Wins!";
+    }
 
     pageMenu.style = "";
     pageMenu.children[1].textContent = message;
+    pageMenu.children[1].hidden = false;
     pageMenu.children[2].hidden = true;
     pageMenu.children[3].hidden = false;
+    pageMenu.children[4].hidden = true;
 
     return true;
   } else {

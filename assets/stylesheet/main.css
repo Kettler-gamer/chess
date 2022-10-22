@@ -55,7 +55,7 @@
   color: rgb(187, 91, 2);
 }
 .page-container .page-menu .page-title,
-.page-container .page-menu .start-btn {
+.page-container .page-menu .btn {
   background-color: rgb(29, 14, 0);
   color: rgb(187, 91, 2);
   padding: 1em 2em;
@@ -65,10 +65,10 @@
 .page-container .page-menu .page-title {
   border-radius: 0.25em;
 }
-.page-container .page-menu .start-btn {
+.page-container .page-menu .btn {
   border-radius: 2em;
 }
-.page-container .page-menu .start-btn:hover {
+.page-container .page-menu .btn:hover {
   background-color: rgb(59, 29, 0);
 }
 .page-container .page-cover {

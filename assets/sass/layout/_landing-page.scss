@@ -42,7 +42,7 @@
         }
 
         .page-title,
-        .start-btn{
+        .btn{
             background-color: rgb(29, 14, 0);
             color: rgb(187, 91, 2);
             padding: 1em 2em;
@@ -54,11 +54,11 @@
             border-radius: 0.25em;
         }
         
-        .start-btn{
+        .btn{
             border-radius: 2em;
         }
 
-        .start-btn:hover{
+        .btn:hover{
             background-color: rgb(59, 29, 0);
         }
     }

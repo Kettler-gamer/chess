@@ -25,10 +25,14 @@
           <div class="circle"></div>
         </div>
         <h1 class="page-title" hidden>Welcome to Chess!</h1>
-        <button class="start-btn" onclick="startGame()" hidden>Start</button>
-        <button class="start-btn" hidden onclick="restartGame()">
-          Restart
-        </button>
+        <button class="btn" onclick="startButtonClick()" hidden>Start</button>
+        <button class="btn" hidden onclick="restartGameClick()">Restart</button>
+        <div hidden>
+          <button class="btn" onclick="playAsWhite(true)">Play as White</button>
+          <button class="btn" onclick="playAsWhite(false)">
+            Play as Black
+          </button>
+        </div>
       </div>
       <div class="page-cover"></div>
       <div class="board-container">
