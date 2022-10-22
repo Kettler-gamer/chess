@@ -4,7 +4,7 @@ const jsonData = fetch("./assets/json/chessPieceData.json");
 
 const AIPieces = [];
 
-let AITurn = true;
+let AITurn;
 
 let chessPieces, playerIsWhite;
 
@@ -45,6 +45,7 @@ function playAsWhite(choice) {
     playfield.parentElement.style = "transform: rotateZ(180deg)";
   }
   playerIsWhite = choice;
+  AITurn = playerIsWhite ? false : true;
   startGame();
 }
 
@@ -56,7 +57,7 @@ function startGame() {
 function restartGameClick() {
   pageCover.style = "";
   removeAllPieces();
-  AITurn = true;
+  // AITurn = true;
   it = 0;
   pageMenu.children[1].hidden = true;
   pageMenu.children[3].hidden = true;
@@ -102,8 +103,12 @@ function setUpblackPiece() {
 
 function setUpYellowPieces() {
   if (it === 32) {
-    pageCover.style = "visibility: hidden";
-    if (!playerIsWhite) switchTurn();
+    if (AITurn) {
+      pageCover.style = "";
+      setTimeout(AIMove, 1000);
+    } else {
+      pageCover.style = "visibility: hidden";
+    }
     return;
   }
 
@@ -163,6 +168,7 @@ function checkPieceAlts(target, id) {
 }
 
 function onChessPieceClick(event) {
+  if (AITurn) return;
   const target = event.target;
   const id = target.id;
   if (
@@ -428,7 +434,7 @@ function attackHere(pieceId, blockId) {
   moveHere(pieceId, blockId);
 }
 
-function AIBlackMove() {
+function AIMove() {
   for (let i = 0; i < AIPieces.length; i++) {
     const id = AIPieces[i].id;
 
@@ -450,16 +456,19 @@ function AIBlackMove() {
     moveBlocks[rand].func();
   }
 
-  AITurn = true;
+  AITurn = false;
 }
 
 function switchTurn() {
   if (winConditionMet()) {
-    AITurn = false;
+    // AITurn = false;
   } else {
     AITurn = !AITurn;
-    if (AITurn === false) {
-      setTimeout(AIBlackMove, 1000);
+    if (AITurn) {
+      pageCover.style = "";
+      setTimeout(AIMove, 1000);
+    } else {
+      pageCover.style = "visibility: hidden";
     }
   }
 }
