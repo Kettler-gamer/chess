@@ -1,4 +1,5 @@
 const playfield = document.querySelector(".playfield");
+const pageMenu = document.querySelector(".page-menu");
 const jsonData = fetch("./assets/json/chessPieceData.json");
 
 const blackPieces = [];
@@ -15,11 +16,25 @@ async function getData() {
   });
 }
 
-const menuPage = document.querySelector(".page-menu");
+checkChessPieces();
+
+function checkChessPieces() {
+  if (chessPieces === undefined) {
+    console.log("chessPieces undefined");
+    setTimeout(checkChessPieces, 1000);
+  } else {
+    console.log("chessPieces NOT undefined");
+    pageMenu.children[0].hidden = true;
+    pageMenu.children[1].hidden = false;
+    pageMenu.children[1].style = "";
+    pageMenu.children[2].hidden = false;
+  }
+}
+
 const pageCover = document.querySelector(".page-cover");
 
 function startGame() {
-  menuPage.style = "visibility: hidden;";
+  pageMenu.style = "visibility: hidden;";
   setTimeout(setUpblackPiece, 0);
 }
 
@@ -35,7 +50,6 @@ function removeAllPieces() {
   for (let i = 0; i < playfield.childElementCount; i++) {
     for (let j = 0; j < playfield.children[i].childElementCount; j++) {
       const element = playfield.children[i].children[j];
-
       if (element.childElementCount === 0) continue;
 
       element.firstChild.remove();
@@ -86,7 +100,7 @@ function createBasicPiece(id, img) {
   const piece = document.createElement("img");
   piece.className = "chess-piece-pic";
   piece.id = id;
-  piece.src = "assets/pictures/" + img + ".png";
+  piece.src = "assets/pictures/" + img + ".webp";
 
   const sound = new Audio("assets/sounds/move.wav");
   sound.play();
@@ -339,7 +353,7 @@ function addElementToMoveBlocks(element, id) {
 function createSelectorImg(color) {
   const image = document.createElement("img");
   image.className = "selector-img";
-  image.src = "assets/pictures/Selected_" + color + "_TP.png";
+  image.src = "assets/pictures/Selected_" + color + "_TP.webp";
   return image;
 }
 
@@ -423,10 +437,10 @@ function winConditionMet() {
   if (blackKing === null || yellowKing === null) {
     const message = blackKing === null ? "Player Wins!" : "AI wins!";
 
-    menuPage.style = "";
-    menuPage.children[0].textContent = message;
-    menuPage.children[1].style = "visibility: hidden;";
-    menuPage.children[2].hidden = false;
+    pageMenu.style = "";
+    pageMenu.children[1].textContent = message;
+    pageMenu.children[2].hidden = true;
+    pageMenu.children[3].hidden = false;
 
     return true;
   } else {

@@ -16,6 +16,44 @@
   width: 100%;
   height: 100%;
 }
+.page-container .page-menu .load-screen {
+  position: absolute;
+}
+.page-container .page-menu .load-screen .circle {
+  border-top: 5px solid rgb(187, 91, 2);
+  align-self: center;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  border-radius: 20em;
+  -webkit-animation-name: loadCircle;
+          animation-name: loadCircle;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+@-webkit-keyframes loadCircle {
+  from {
+    transform: rotateZ(0);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+@keyframes loadCircle {
+  from {
+    transform: rotateZ(0);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+.page-container .page-menu .load-screen .text {
+  color: rgb(187, 91, 2);
+}
 .page-container .page-menu .page-title,
 .page-container .page-menu .start-btn {
   background-color: rgb(29, 14, 0);
