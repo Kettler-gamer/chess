@@ -66,6 +66,9 @@
                 height: fit-content;
                 margin-top: auto;
                 margin-bottom: 0;
+                p{
+                    transform: rotateZ(180deg);
+                }
             }
         }
         .numbers{
@@ -74,6 +77,13 @@
             justify-content: space-around;
             flex: 0 0 10%;
             text-align: center;
+        }
+        .numbers:nth-child(4){
+            div{
+                p{
+                    transform: rotateZ(180deg);
+                }
+            }
         }
         .playfield{
             flex: 0 0 80%;
@@ -133,6 +143,30 @@
             }
             .board-row:nth-child(even) .block:nth-child(even){
                 background-color: rgb(187, 91, 2);
+            }
+        }
+    }
+}
+
+@media screen and (min-width:1200px) and (min-height:1200px) {
+    .page-container{
+        font-size: 2rem;
+        .board-container{
+            max-width: none;
+            width: 1200px;
+            .numbers{
+                flex: 0 1 8%;
+            }
+            .playfield{
+                height: 1000px;
+                width: 1000px;
+                .board-row{
+                    height: 125px;
+                    .block{
+                        width: 125px;
+                        height: 125px;
+                    }
+                }
             }
         }
     }

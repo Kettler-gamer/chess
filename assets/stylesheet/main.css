@@ -62,12 +62,18 @@
   margin-top: auto;
   margin-bottom: 0;
 }
+.page-container .board-container .letters:first-child div p {
+  transform: rotateZ(180deg);
+}
 .page-container .board-container .numbers {
   display: flex;
   flex-direction: column-reverse;
   justify-content: space-around;
   flex: 0 0 10%;
   text-align: center;
+}
+.page-container .board-container .numbers:nth-child(4) div p {
+  transform: rotateZ(180deg);
 }
 .page-container .board-container .playfield {
   flex: 0 0 80%;
@@ -140,6 +146,29 @@
   background-color: rgb(187, 91, 2);
 }
 
+@media screen and (min-width: 1200px) and (min-height: 1200px) {
+  .page-container {
+    font-size: 2rem;
+  }
+  .page-container .board-container {
+    max-width: none;
+    width: 1200px;
+  }
+  .page-container .board-container .numbers {
+    flex: 0 1 8%;
+  }
+  .page-container .board-container .playfield {
+    height: 1000px;
+    width: 1000px;
+  }
+  .page-container .board-container .playfield .board-row {
+    height: 125px;
+  }
+  .page-container .board-container .playfield .board-row .block {
+    width: 125px;
+    height: 125px;
+  }
+}
 html, body {
   margin: 0;
   padding: 0;
