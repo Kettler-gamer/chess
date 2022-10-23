@@ -1,4 +1,10 @@
+@font-face {
+    font-family: myCustomFont;
+    src: url('./fonts/GideonRoman-Regular.ttf');
+}
+
 .page-container{
+    font-family: myCustomFont, Arial, Helvetica, sans-serif;
     height: 100%;
     width: 100vw;
 
@@ -124,35 +130,39 @@
             }
         }
         .playfield{
-            flex: 0 0 318px;
-            height: 318px;
+            flex: 0 0 312px;
+            height: 309px;
             box-shadow: 0 0 10px black;
 
             .board-row{
                 .block:not(:last-child){
-                    border-right: 2px solid #85560f;
+                    border-right: 3px solid #85560f;
                 }
             }
             .board-row:not(:last-child){
                 .block{
-                    border-bottom: 2px solid #85560f;
+                    border-bottom: 3px solid #85560f;
                 }
             }
 
             .board-row{
                 display: flex;
                 width: 100%;
-                height: 40px;
+                height: 39px;
 
                 .block{
                     position: relative;
-                    height: 38.5px;
-                    width: 38.5px;
+                    height: 37px;
+                    width: 37px;
                     
                     .selector-img,
                     .chess-piece-pic{
                         width: 100%;
                         height: 100%;
+                    }
+
+                    .chess-piece-pic{
+                        background-color: rgb(255, 255, 255, 0.1);
                     }
 
                     .chess-piece-pic:hover{
@@ -184,16 +194,20 @@
                 }
             }
             .board-row:nth-child(odd) .block:nth-child(odd){
-                background-color: rgb(187, 91, 2);
+                // background-color: rgb(187, 91, 2);
+                background-image: url("../pictures/Block-gul.webp");
             }
             .board-row:nth-child(odd) .block:nth-child(even){
-                background-color: rgb(59, 29, 0);
+                // background-color: rgb(59, 29, 0);
+                background-image: url("../pictures/Block-brun.webp");
             }
             .board-row:nth-child(even) .block:nth-child(odd){
-                background-color: rgb(59, 29, 0);
+                // background-color: rgb(59, 29, 0);
+                background-image: url("../pictures/Block-brun.webp");
             }
             .board-row:nth-child(even) .block:nth-child(even){
-                background-color: rgb(187, 91, 2);
+                // background-color: rgb(187, 91, 2);
+                background-image: url("../pictures/Block-gul.webp");
             }
         }
     }

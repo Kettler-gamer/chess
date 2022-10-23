@@ -1,4 +1,9 @@
+@font-face {
+  font-family: myCustomFont;
+  src: url("./fonts/GideonRoman-Regular.ttf");
+}
 .page-container {
+  font-family: myCustomFont, Arial, Helvetica, sans-serif;
   height: 100%;
   width: 100vw;
   font-weight: 1000;
@@ -120,30 +125,33 @@
   transform: rotateZ(180deg);
 }
 .page-container .board-container .playfield {
-  flex: 0 0 318px;
-  height: 318px;
+  flex: 0 0 312px;
+  height: 309px;
   box-shadow: 0 0 10px black;
 }
 .page-container .board-container .playfield .board-row .block:not(:last-child) {
-  border-right: 2px solid #85560f;
+  border-right: 3px solid #85560f;
 }
 .page-container .board-container .playfield .board-row:not(:last-child) .block {
-  border-bottom: 2px solid #85560f;
+  border-bottom: 3px solid #85560f;
 }
 .page-container .board-container .playfield .board-row {
   display: flex;
   width: 100%;
-  height: 40px;
+  height: 39px;
 }
 .page-container .board-container .playfield .board-row .block {
   position: relative;
-  height: 38.5px;
-  width: 38.5px;
+  height: 37px;
+  width: 37px;
 }
 .page-container .board-container .playfield .board-row .block .selector-img,
 .page-container .board-container .playfield .board-row .block .chess-piece-pic {
   width: 100%;
   height: 100%;
+}
+.page-container .board-container .playfield .board-row .block .chess-piece-pic {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 .page-container .board-container .playfield .board-row .block .chess-piece-pic:hover {
   background-color: rgba(255, 255, 0, 0.349);
@@ -185,16 +193,16 @@
   }
 }
 .page-container .board-container .playfield .board-row:nth-child(odd) .block:nth-child(odd) {
-  background-color: rgb(187, 91, 2);
+  background-image: url("../pictures/Block-gul.webp");
 }
 .page-container .board-container .playfield .board-row:nth-child(odd) .block:nth-child(even) {
-  background-color: rgb(59, 29, 0);
+  background-image: url("../pictures/Block-brun.webp");
 }
 .page-container .board-container .playfield .board-row:nth-child(even) .block:nth-child(odd) {
-  background-color: rgb(59, 29, 0);
+  background-image: url("../pictures/Block-brun.webp");
 }
 .page-container .board-container .playfield .board-row:nth-child(even) .block:nth-child(even) {
-  background-color: rgb(187, 91, 2);
+  background-image: url("../pictures/Block-gul.webp");
 }
 
 @media screen and (min-width: 768px) {
