@@ -373,7 +373,7 @@ function horsePiece(target, id) {
 
 function getNumsFromParentId(parentElement) {
   const nums = parentElement.id.split("-");
-  nums[0] = getNumberFromChar(nums[0]);
+  nums[0] = nums[0].charCodeAt(0) - 64;
   nums[1] = Number(nums[1]);
   return nums;
 }
@@ -463,9 +463,7 @@ function AIMove() {
 }
 
 function switchTurn() {
-  if (winConditionMet()) {
-    // AITurn = false;
-  } else {
+  if (!winConditionMet()) {
     AITurn = !AITurn;
     if (AITurn) {
       pageCover.style = "";
@@ -514,27 +512,4 @@ function resetPlayfield() {
   document.querySelectorAll(".selector-img").forEach((element) => {
     element.remove();
   });
-}
-
-function getNumberFromChar(char) {
-  switch (char) {
-    case "A":
-      return 1;
-    case "B":
-      return 2;
-    case "C":
-      return 3;
-    case "D":
-      return 4;
-    case "E":
-      return 5;
-    case "F":
-      return 6;
-    case "G":
-      return 7;
-    case "H":
-      return 8;
-    default:
-      return undefined;
-  }
 }
