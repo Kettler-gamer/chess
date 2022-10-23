@@ -15,6 +15,8 @@
   top: 0;
   width: 100%;
   height: 100%;
+  margin-top: -5em;
+  padding-bottom: 5em;
 }
 .page-container .page-menu .load-screen {
   position: absolute;
@@ -70,6 +72,10 @@
 }
 .page-container .page-menu .btn:hover {
   background-color: rgb(59, 29, 0);
+}
+.page-container .page-menu .choice-menu {
+  width: 175px;
+  margin: 0 auto;
 }
 .page-container .page-cover {
   position: absolute;
@@ -131,8 +137,8 @@
 }
 .page-container .board-container .playfield .board-row .block {
   position: relative;
-  height: 38px;
-  width: 38px;
+  height: 38.5px;
+  width: 38.5px;
 }
 .page-container .board-container .playfield .board-row .block .selector-img,
 .page-container .board-container .playfield .board-row .block .chess-piece-pic {
@@ -197,20 +203,24 @@
   }
   .page-container .board-container {
     max-width: none;
-    width: 750px;
+    width: 740px;
     margin: 10vh auto;
   }
   .page-container .board-container .letters {
     height: 75px;
     padding: 0 50px;
-    flex: 0 0 650px;
+    flex: 0 0 640px;
   }
   .page-container .board-container .numbers {
     flex: 0 1 50px;
   }
   .page-container .board-container .playfield {
-    height: 645px;
-    width: 650px;
+    height: 635px;
+    width: 640px;
+  }
+  .page-container .board-container .playfield .board-row .block {
+    margin: 0;
+    padding: 0;
   }
   .page-container .board-container .playfield .board-row .block:not(:last-child) {
     border-right: 5px solid #85560f;
@@ -219,11 +229,11 @@
     border-bottom: 5px solid #85560f;
   }
   .page-container .board-container .playfield .board-row {
-    height: 81.25px;
+    height: 80px;
   }
   .page-container .board-container .playfield .board-row .block {
-    width: 76.25px;
-    height: 76.25px;
+    width: 75px;
+    height: 75px;
   }
 }
 @media screen and (min-width: 1200px) and (min-height: 1200px) {
