@@ -63,7 +63,9 @@
         }
         
         .btn{
+            font-family: myCustomFont, Arial, Helvetica, sans-serif;
             border-radius: 2em;
+            transition: 0.2s;
         }
 
         .btn:hover{
@@ -163,9 +165,10 @@
 
                     .chess-piece-pic{
                         background-color: rgb(255, 255, 255, 0.1);
+                        transition: 0.2s;
                     }
 
-                    .chess-piece-pic:hover{
+                    .chess-piece-hover:hover{
                         background-color: rgba(255, 255, 0, 0.349);
                     }
 

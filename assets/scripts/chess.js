@@ -55,13 +55,12 @@ function startGame() {
 }
 
 function restartGameClick() {
-  pageCover.style = "";
-  removeAllPieces();
-  // AITurn = true;
-  it = 0;
   pageMenu.children[1].hidden = true;
   pageMenu.children[3].hidden = true;
   pageMenu.children[4].hidden = false;
+  pageCover.style = "";
+  removeAllPieces();
+  it = 0;
 }
 
 function removeAllPieces() {
@@ -86,10 +85,13 @@ function setUpblackPiece() {
   const block = document.querySelector("#" + chessPieces[it].startBlock);
 
   const piece = createBasicPiece(chessPieces[it].id, chessPieces[it].img);
-  piece.style = "scale: -1";
+  piece.style = playerIsWhite
+    ? "scale: -1;"
+    : "scale: -1; transform: translateX(1px);";
 
   if (!playerIsWhite) {
     piece.addEventListener("click", onChessPieceClick);
+    piece.classList.add("chess-piece-hover");
   } else {
     AIPieces.push(piece);
   }
@@ -118,6 +120,7 @@ function setUpYellowPieces() {
 
   if (playerIsWhite) {
     piece.addEventListener("click", onChessPieceClick);
+    piece.classList.add("chess-piece-hover");
   } else {
     AIPieces.push(piece);
   }

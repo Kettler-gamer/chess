@@ -73,7 +73,9 @@
   border-radius: 0.25em;
 }
 .page-container .page-menu .btn {
+  font-family: myCustomFont, Arial, Helvetica, sans-serif;
   border-radius: 2em;
+  transition: 0.2s;
 }
 .page-container .page-menu .btn:hover {
   background-color: rgb(59, 29, 0);
@@ -152,8 +154,9 @@
 }
 .page-container .board-container .playfield .board-row .block .chess-piece-pic {
   background-color: rgba(255, 255, 255, 0.1);
+  transition: 0.2s;
 }
-.page-container .board-container .playfield .board-row .block .chess-piece-pic:hover {
+.page-container .board-container .playfield .board-row .block .chess-piece-hover:hover {
   background-color: rgba(255, 255, 0, 0.349);
 }
 .page-container .board-container .playfield .board-row .block .selector-img {
