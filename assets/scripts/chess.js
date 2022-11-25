@@ -4,9 +4,20 @@ const jsonData = fetch("./assets/json/chessPieceData.json");
 
 const AIPieces = [];
 
-let AITurn;
+let AITurn, chessPieces, playerIsWhite;
 
-let chessPieces, playerIsWhite;
+pageMenu.innerHTML = `
+<div class="load-screen">
+  <p class="text">Loading...</p>
+  <div class="circle"></div>
+</div>
+<h1 class="page-title" hidden>Welcome to Chess!</h1>
+<button class="btn" onclick="startButtonClick()" hidden>Start</button>
+<button class="btn" hidden onclick="restartGameClick()">Restart</button>
+<div class="choice-menu" hidden>
+  <button class="btn" onclick="playAsWhite(true)">Play as White</button>
+  <button class="btn" onclick="playAsWhite(false)">Play as Black</button>
+</div>`;
 
 getData();
 
@@ -26,6 +37,7 @@ function checkChessPieces() {
     pageMenu.children[1].hidden = false;
     pageMenu.children[1].style = "";
     pageMenu.children[2].hidden = false;
+    createPlayfield();
   }
 }
 
@@ -512,4 +524,19 @@ function resetPlayfield() {
   document.querySelectorAll(".selector-img").forEach((element) => {
     element.remove();
   });
+}
+
+function createPlayfield() {
+  const chars = "ABCDEFGH";
+  for (let i = 8; i >= 1; i--) {
+    const boardRow = document.createElement("div");
+    boardRow.className = "board-row";
+    for (let j = 0; j < chars.length; j++) {
+      const block = document.createElement("div");
+      block.className = "block";
+      block.id = `${chars[j]}-${i}`;
+      boardRow.append(block);
+    }
+    playfield.append(boardRow);
+  }
 }
