@@ -3,6 +3,11 @@
     src: url('./fonts/GideonRoman-Regular.ttf');
 }
 
+html,
+.page-container{
+    background-image: url("../pictures/Block-brun.webp");
+}
+
 .page-container{
     font-family: myCustomFont, Arial, Helvetica, sans-serif;
     height: 100%;
@@ -94,6 +99,10 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        border: 10px solid rgb(47, 26, 0);
+        border-radius: 5%;
+        background-color: rgb(29, 14, 0);
+        color: rgb(187, 91, 2);
 
         .letters{
             display: flex;
