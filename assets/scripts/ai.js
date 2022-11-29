@@ -81,19 +81,20 @@ function setOpponentsChoices() {
       if (AIopponentPieces[i].id.includes("bonde")) {
         const letters = "ABCDEFGH";
         const boardId = AIopponentPieces[i].parentElement.id.split("-");
+        const path = AIopponentPieces[i].id.includes("svart") ? -1 : 1;
         boardId[0] = letters.indexOf(boardId[0]);
-        boardId[1] = Number(boardId[1]) + 1;
+        boardId[1] = Number(boardId[1]) + path;
         if (boardId[0] - 1 >= 0) {
           AIOpponentMoveBlocks.push({
             element: {
-              element: { id: `${letters[boardId[0] - 1]}-${boardId[1]}` },
+              element: { id: `${letters[boardId[0] + 1]}-${boardId[1]}` },
             },
           });
         }
         if (boardId[0] + 1 <= 7) {
           AIOpponentMoveBlocks.push({
             element: {
-              element: { id: `${letters[boardId[0] + 1]}-${boardId[1]}` },
+              element: { id: `${letters[boardId[0] - 1]}-${boardId[1]}` },
             },
           });
         }
@@ -169,14 +170,16 @@ function protectKing() {
         attackMovers = [];
 
       filteredKingAttacks.forEach((piece) => {
-        // console.log("FilteredKingAttack piece:");
-        // console.log(piece);
         checkPieceAlts(
           document.querySelector(`#${piece.mover}`),
           piece.mover,
           pieceMovers,
           attackMovers,
-          true
+          [
+            AIPieces.find((piece) => {
+              return piece.id.includes("kung");
+            }).parentElement.id,
+          ]
         );
       });
 
@@ -191,8 +194,6 @@ function protectKing() {
       pieceMovers = pieceMovers.map((piece) => piece.element.id);
       attackMovers = attackMovers.map((piece) => piece.element.id);
 
-      // console.log(AIOpponentMoveBlocks);
-
       const kingMovers = AImoveBlocks.filter(
         (element) =>
           element.mover.includes("kung") &&
@@ -203,8 +204,6 @@ function protectKing() {
             (piece) => piece.element.id == element.element.id
           ) == undefined
       );
-
-      console.log(kingMovers);
 
       if (kingMovers.length > 0) {
         kingMovers[0].func();

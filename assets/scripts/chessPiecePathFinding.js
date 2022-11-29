@@ -59,26 +59,32 @@ function horsePiece(target, id, moveBlocks, attackBlocks) {
   }
 }
 
-function checkPieceAlts(target, id, moveBlocks, attackBlocks, ignoreKing) {
+function checkPieceAlts(
+  target,
+  id,
+  moveBlocks,
+  attackBlocks,
+  ignoreBlocks = []
+) {
   switch (true) {
     case id.startsWith("bonde"):
-      bondePiece(target, id, moveBlocks, attackBlocks, ignoreKing);
+      bondePiece(target, id, moveBlocks, attackBlocks, ignoreBlocks);
       break;
     case id.startsWith("häst"):
-      horsePiece(target, id, moveBlocks, attackBlocks, ignoreKing);
+      horsePiece(target, id, moveBlocks, attackBlocks, ignoreBlocks);
       break;
     case id.startsWith("torn"):
-      tornPiece(target, id, moveBlocks, attackBlocks, ignoreKing);
+      tornPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks);
       break;
     case id.startsWith("löpare"):
-      bishopPiece(target, id, moveBlocks, attackBlocks, ignoreKing);
+      bishopPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks);
       break;
     case id.startsWith("drottning"):
-      bishopPiece(target, id, moveBlocks, attackBlocks, ignoreKing);
-      tornPiece(target, id, moveBlocks, attackBlocks, ignoreKing);
+      bishopPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks);
+      tornPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks);
       break;
     case id.startsWith("kung"):
-      kingPiece(target, id, moveBlocks, attackBlocks, ignoreKing);
+      kingPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks);
       break;
     default:
       console.log("Unkown piece!");
@@ -109,7 +115,7 @@ function kingPiece(target, id, moveBlocks, attackBlocks) {
   }
 }
 
-function bishopPiece(target, id, moveBlocks, attackBlocks, ignoreKing) {
+function bishopPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks) {
   const nums = getNumsFromParentId(target.parentElement);
 
   for (let i = 0; i < bishopAlts.length; i++) {
@@ -131,13 +137,14 @@ function bishopPiece(target, id, moveBlocks, attackBlocks, ignoreKing) {
       ) {
         if (checkElementForAttack(nextElement, id)) {
           addElementToAttackBlocks(nextElement, id, attackBlocks);
-          if (ignoreKing && id.includes("kung")) {
-            stepX += bishopAlts[i].x;
-            stepY += bishopAlts[i].y;
-            continue;
-          }
         }
-        pathFound = true;
+        if (ignoreBlocks.includes(nextElement.id)) {
+          console.log(`Skipped ${nextElement.id} for ${id}`);
+          stepX += bishopAlts[i].x;
+          stepY += bishopAlts[i].y;
+        } else {
+          pathFound = true;
+        }
       } else {
         addElementToMoveBlocks(nextElement, id, moveBlocks);
         stepX += bishopAlts[i].x;
@@ -147,7 +154,7 @@ function bishopPiece(target, id, moveBlocks, attackBlocks, ignoreKing) {
   }
 }
 
-function tornPiece(target, id, moveBlocks, attackBlocks, ignoreKing) {
+function tornPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks) {
   const nums = getNumsFromParentId(target.parentElement);
 
   for (let i = 0; i < tornAlts.length; i++) {
@@ -169,13 +176,14 @@ function tornPiece(target, id, moveBlocks, attackBlocks, ignoreKing) {
       ) {
         if (checkElementForAttack(nextElement, id)) {
           addElementToAttackBlocks(nextElement, id, attackBlocks);
-          if (ignoreKing && id.includes("kung")) {
-            stepX += bishopAlts[i].x;
-            stepY += bishopAlts[i].y;
-            continue;
-          }
         }
-        pathsFound = true;
+        if (ignoreBlocks.includes(nextElement.id)) {
+          console.log(`Skipped ${nextElement.id} for ${id}`);
+          stepX += tornAlts[i].x;
+          stepY += tornAlts[i].y;
+        } else {
+          pathsFound = true;
+        }
       } else {
         addElementToMoveBlocks(nextElement, id, moveBlocks);
         stepX += tornAlts[i].x;
@@ -185,7 +193,7 @@ function tornPiece(target, id, moveBlocks, attackBlocks, ignoreKing) {
   }
 }
 
-function bondePiece(target, id, moveBlocks, attackBlocks, ignoreKing) {
+function bondePiece(target, id, moveBlocks, attackBlocks, ignoreBlocks) {
   const nums = getNumsFromParentId(target.parentElement);
 
   const step = id.includes("gul") ? 0 : 2;

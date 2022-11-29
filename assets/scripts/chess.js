@@ -168,7 +168,7 @@ function onChessPieceClick(event) {
   )
     return;
   resetPlayfield();
-  checkPieceAlts(target, id, moveBlocks, attackBlocks, false);
+  checkPieceAlts(target, id, moveBlocks, attackBlocks);
 }
 
 function getNumsFromParentId(parentElement) {
@@ -250,4 +250,21 @@ function createPlayfield() {
     }
     playfield.append(boardRow);
   }
+  const letters = document.querySelectorAll(".letters");
+  const numbers = document.querySelectorAll(".numbers");
+  for (let i = 0; i < chars.length; i++) {
+    createSideCharacters(letters[0], chars[i]);
+    createSideCharacters(letters[1], chars[i]);
+    createSideCharacters(numbers[0], i + 1);
+    createSideCharacters(numbers[1], i + 1);
+  }
+}
+
+function createSideCharacters(parent, letter) {
+  const charDiv1 = document.createElement("div");
+  const charP1 = document.createElement("p");
+  charP1.textContent = letter;
+  charDiv1.append(charP1);
+
+  parent.append(charDiv1);
 }
