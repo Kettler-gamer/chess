@@ -6,6 +6,7 @@ const AIPieces = [],
   AIOpponentAttackBlocks = [];
 
 let filteredKingAttacks;
+const letters = "ABCDEFGH";
 
 function AIMove() {
   for (let i = 0; i < AIPieces.length; i++) {
@@ -24,18 +25,108 @@ function AIMove() {
   if (isKingInCheck()) {
     protectKing();
   } else if (AIattackBlocks.length > 0) {
-    const rand = Math.floor(Math.random() * AIattackBlocks.length);
-
-    AIattackBlocks[rand].func();
+    checkForAttack(AIattackBlocks);
   } else {
-    const rand = Math.floor(Math.random() * AImoveBlocks.length);
-
-    AImoveBlocks[rand].func();
+    checkForMove();
   }
 
   resetAIBlocks();
 
   AITurn = false;
+}
+
+function checkForMove() {
+  sortByImportance(AImoveBlocks);
+
+  const filteredMoves = AImoveBlocks.filter((element) => {
+    // console.log(element);
+    if (element.mover.includes("kung")) {
+      return false;
+    }
+    const opponentMoveChoices = [];
+    const opponentAttackChoices = [];
+
+    for (let i = 0; i < AIopponentPieces.length; i++) {
+      if (AIopponentPieces[i].id.includes("bonde")) {
+        const id = AIopponentPieces[i].parentElement.id;
+        const direction = AIopponentPieces[i].id.includes("svart") ? -1 : 1;
+        opponentMoveChoices.push(
+          `${letters[letters.indexOf(id[0]) - 1]}-${Number(id[2]) + direction}`
+        );
+        opponentMoveChoices.push(
+          `${letters[letters.indexOf(id[0]) + 1]}-${Number(id[2]) + direction}`
+        );
+      } else {
+        checkPieceAlts(
+          AIopponentPieces[i],
+          AIopponentPieces[i].id,
+          opponentMoveChoices,
+          opponentAttackChoices,
+          [element.element.id],
+          false
+        );
+      }
+    }
+    // console.log(opponentAttackChoices);
+    // console.log(opponentMoveChoices);
+
+    return ![...opponentMoveChoices, opponentAttackChoices].includes(
+      element.element.id
+    );
+  });
+
+  console.log(filteredMoves);
+
+  if (filteredMoves.length > 0) {
+    filteredMoves[0].func();
+  } else {
+    AImoveBlocks[0].func();
+  }
+}
+
+function checkForAttack(AIattackBlocks) {
+  sortByImportance(AIattackBlocks);
+
+  const filteredAttacks = AIattackBlocks.filter((element) => {
+    const opponentMoveChoices = [];
+    const opponentAttackChoices = [];
+
+    for (let i = 0; i < AIopponentPieces.length; i++) {
+      if (AIopponentPieces[i].id.includes("bonde")) {
+        const id = AIopponentPieces[i].parentElement.id;
+        const direction = AIopponentPieces[i].id.includes("svart") ? -1 : 1;
+        opponentMoveChoices.push(
+          `${letters[letters.indexOf(id[0]) - 1]}-${Number(id[2]) + direction}`
+        );
+        opponentMoveChoices.push(
+          `${letters[letters.indexOf(id[0]) + 1]}-${Number(id[2]) + direction}`
+        );
+      } else {
+        checkPieceAlts(
+          AIopponentPieces[i],
+          AIopponentPieces[i].id,
+          opponentMoveChoices,
+          opponentAttackChoices,
+          [element.element.id],
+          false
+        );
+      }
+    }
+    // console.log(opponentAttackChoices);
+    // console.log(opponentMoveChoices);
+
+    return ![...opponentMoveChoices, opponentAttackChoices].includes(
+      element.element.id
+    );
+  });
+
+  // console.log(filteredAttacks);
+
+  if (filteredAttacks.length > 0) {
+    filteredAttacks[0].func();
+  } else {
+    checkForMove();
+  }
 }
 
 function resetAIBlocks() {
@@ -79,7 +170,6 @@ function setOpponentsChoices() {
       i--;
     } else {
       if (AIopponentPieces[i].id.includes("bonde")) {
-        const letters = "ABCDEFGH";
         const boardId = AIopponentPieces[i].parentElement.id.split("-");
         const path = AIopponentPieces[i].id.includes("svart") ? -1 : 1;
         boardId[0] = letters.indexOf(boardId[0]);
@@ -119,6 +209,9 @@ function protectKing() {
   ).parentElement.id;
 
   const pieceAttacks = AIattackBlocks.filter((attack) => {
+    if (attack.mover.includes("kung")) {
+      return false;
+    }
     return attack.element.children[0].id.includes(filteredKingAttacks[0].mover);
   });
 
@@ -128,7 +221,6 @@ function protectKing() {
   } else {
     const blockers = [];
     const blockersIds = [];
-    const letters = "ABCDEFGH";
     const kingNum = Number(kingBlockId[2]);
     const attackerNum = Number(attackerBlockID[2]);
     const kingLetterIndex = letters.indexOf(kingBlockId[0]);

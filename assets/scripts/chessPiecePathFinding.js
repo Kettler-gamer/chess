@@ -34,7 +34,7 @@ const horseAlts = [
   { x: -2, y: -1 },
 ];
 
-function horsePiece(target, id, moveBlocks, attackBlocks) {
+function horsePiece(target, id, moveBlocks, attackBlocks, addClickEvents) {
   const nums = getNumsFromParentId(target.parentElement);
 
   for (let i = 0; i < horseAlts.length; i++) {
@@ -50,12 +50,19 @@ function horsePiece(target, id, moveBlocks, attackBlocks) {
       element.children[0].className != "selector-img"
     ) {
       if (checkElementForAttack(element, id)) {
-        addElementToAttackBlocks(element, id, attackBlocks);
+        if (addClickEvents != undefined && !addClickEvents) {
+          attackBlocks.push(element.id);
+        } else {
+          addElementToAttackBlocks(element, id, attackBlocks);
+        }
       }
       continue;
     }
-
-    addElementToMoveBlocks(element, id, moveBlocks);
+    if (addClickEvents != undefined && !addClickEvents) {
+      moveBlocks.push(element.id);
+    } else {
+      addElementToMoveBlocks(element, id, moveBlocks);
+    }
   }
 }
 
@@ -64,34 +71,77 @@ function checkPieceAlts(
   id,
   moveBlocks,
   attackBlocks,
-  ignoreBlocks = []
+  ignoreBlocks = [],
+  addClickEvents = true
 ) {
   switch (true) {
     case id.startsWith("bonde"):
-      bondePiece(target, id, moveBlocks, attackBlocks, ignoreBlocks);
+      bondePiece(target, id, moveBlocks, attackBlocks, addClickEvents);
       break;
     case id.startsWith("häst"):
-      horsePiece(target, id, moveBlocks, attackBlocks, ignoreBlocks);
+      horsePiece(target, id, moveBlocks, attackBlocks, addClickEvents);
       break;
     case id.startsWith("torn"):
-      tornPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks);
+      tornPiece(
+        target,
+        id,
+        moveBlocks,
+        attackBlocks,
+        ignoreBlocks,
+        addClickEvents
+      );
       break;
     case id.startsWith("löpare"):
-      bishopPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks);
+      bishopPiece(
+        target,
+        id,
+        moveBlocks,
+        attackBlocks,
+        ignoreBlocks,
+        addClickEvents
+      );
       break;
     case id.startsWith("drottning"):
-      bishopPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks);
-      tornPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks);
+      bishopPiece(
+        target,
+        id,
+        moveBlocks,
+        attackBlocks,
+        ignoreBlocks,
+        addClickEvents
+      );
+      tornPiece(
+        target,
+        id,
+        moveBlocks,
+        attackBlocks,
+        ignoreBlocks,
+        addClickEvents
+      );
       break;
     case id.startsWith("kung"):
-      kingPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks);
+      kingPiece(
+        target,
+        id,
+        moveBlocks,
+        attackBlocks,
+        ignoreBlocks,
+        addClickEvents
+      );
       break;
     default:
       console.log("Unkown piece!");
   }
 }
 
-function kingPiece(target, id, moveBlocks, attackBlocks) {
+function kingPiece(
+  target,
+  id,
+  moveBlocks,
+  attackBlocks,
+  ignoreBlocks,
+  addClickEvents
+) {
   const nums = getNumsFromParentId(target.parentElement);
 
   for (let i = 0; i < kingAlts.length; i++) {
@@ -107,15 +157,32 @@ function kingPiece(target, id, moveBlocks, attackBlocks) {
       element.children[0].className != "selector-img"
     ) {
       if (checkElementForAttack(element, id)) {
-        addElementToAttackBlocks(element, id, attackBlocks);
+        if (!addClickEvents) {
+          attackBlocks.push(element.id);
+        } else {
+          addElementToAttackBlocks(element, id, attackBlocks);
+        }
+      } else if (addClickEvents == false && ignoreBlocks.includes(element.id)) {
+        moveBlocks.push(element.id);
       }
       continue;
     }
-    addElementToMoveBlocks(element, id, moveBlocks);
+    if (!addClickEvents) {
+      moveBlocks.push(element.id);
+    } else {
+      addElementToMoveBlocks(element, id, moveBlocks);
+    }
   }
 }
 
-function bishopPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks) {
+function bishopPiece(
+  target,
+  id,
+  moveBlocks,
+  attackBlocks,
+  ignoreBlocks,
+  addClickEvents
+) {
   const nums = getNumsFromParentId(target.parentElement);
 
   for (let i = 0; i < bishopAlts.length; i++) {
@@ -136,17 +203,27 @@ function bishopPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks) {
         nextElement.children[0].className != "selector-img"
       ) {
         if (checkElementForAttack(nextElement, id)) {
-          addElementToAttackBlocks(nextElement, id, attackBlocks);
+          if (addClickEvents != undefined && addClickEvents == false) {
+            attackBlocks.push(nextElement.id);
+          } else {
+            addElementToAttackBlocks(nextElement, id, attackBlocks);
+          }
         }
         if (ignoreBlocks.includes(nextElement.id)) {
-          console.log(`Skipped ${nextElement.id} for ${id}`);
+          if (!addClickEvents) {
+            moveBlocks.push(nextElement.id);
+          }
           stepX += bishopAlts[i].x;
           stepY += bishopAlts[i].y;
         } else {
           pathFound = true;
         }
       } else {
-        addElementToMoveBlocks(nextElement, id, moveBlocks);
+        if (addClickEvents != undefined && addClickEvents == false) {
+          moveBlocks.push(nextElement.id);
+        } else {
+          addElementToMoveBlocks(nextElement, id, moveBlocks);
+        }
         stepX += bishopAlts[i].x;
         stepY += bishopAlts[i].y;
       }
@@ -154,7 +231,14 @@ function bishopPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks) {
   }
 }
 
-function tornPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks) {
+function tornPiece(
+  target,
+  id,
+  moveBlocks,
+  attackBlocks,
+  ignoreBlocks,
+  addClickEvents
+) {
   const nums = getNumsFromParentId(target.parentElement);
 
   for (let i = 0; i < tornAlts.length; i++) {
@@ -175,17 +259,27 @@ function tornPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks) {
         nextElement.children[0].className != "selector-img"
       ) {
         if (checkElementForAttack(nextElement, id)) {
-          addElementToAttackBlocks(nextElement, id, attackBlocks);
+          if (!addClickEvents) {
+            attackBlocks.push(nextElement.id);
+          } else {
+            addElementToAttackBlocks(nextElement, id, attackBlocks);
+          }
         }
         if (ignoreBlocks.includes(nextElement.id)) {
-          console.log(`Skipped ${nextElement.id} for ${id}`);
+          if (!addClickEvents) {
+            attackBlocks.push(nextElement.id);
+          }
           stepX += tornAlts[i].x;
           stepY += tornAlts[i].y;
         } else {
           pathsFound = true;
         }
       } else {
-        addElementToMoveBlocks(nextElement, id, moveBlocks);
+        if (!addClickEvents) {
+          moveBlocks.push(nextElement.id);
+        } else {
+          addElementToMoveBlocks(nextElement, id, moveBlocks);
+        }
         stepX += tornAlts[i].x;
         stepY += tornAlts[i].y;
       }
@@ -193,7 +287,7 @@ function tornPiece(target, id, moveBlocks, attackBlocks, ignoreBlocks) {
   }
 }
 
-function bondePiece(target, id, moveBlocks, attackBlocks, ignoreBlocks) {
+function bondePiece(target, id, moveBlocks, attackBlocks, addClickEvents) {
   const nums = getNumsFromParentId(target.parentElement);
 
   const step = id.includes("gul") ? 0 : 2;
@@ -212,12 +306,22 @@ function bondePiece(target, id, moveBlocks, attackBlocks, ignoreBlocks) {
 
   for (let i = 0; i < elLeftRight.length; i++) {
     if (checkElementForAttack(elLeftRight[i], id))
-      addElementToAttackBlocks(elLeftRight[i], id, attackBlocks);
+      if (addClickEvents != undefined && !addClickEvents) {
+        console.log("Bonde check");
+        console.log(elLeftRight[i]);
+        attackBlocks.push(elLeftRight[i].id);
+      } else {
+        addElementToAttackBlocks(elLeftRight[i], id, attackBlocks);
+      }
   }
 
   if (element.childElementCount > 0) return;
 
-  addElementToMoveBlocks(element, id, moveBlocks);
+  if (addClickEvents != undefined && !addClickEvents) {
+    moveBlocks.push(element.id);
+  } else {
+    addElementToMoveBlocks(element, id, moveBlocks);
+  }
 
   if (y === 5 && id.includes("gul")) {
     const element2 = playfield.children[y - 1].children[x];
@@ -226,7 +330,11 @@ function bondePiece(target, id, moveBlocks, attackBlocks, ignoreBlocks) {
       element2.children[0].className != "selector-img"
     )
       return;
-    addElementToMoveBlocks(element2, id, moveBlocks);
+    if (addClickEvents != undefined && !addClickEvents) {
+      moveBlocks.push(element2.id);
+    } else {
+      addElementToMoveBlocks(element2, id, moveBlocks);
+    }
   } else if (y === 2 && id.includes("svart")) {
     const element2 = playfield.children[y + 1].children[x];
     if (
@@ -234,7 +342,11 @@ function bondePiece(target, id, moveBlocks, attackBlocks, ignoreBlocks) {
       element2.children[0].className != "selector-img"
     )
       return;
-    addElementToMoveBlocks(element2, id, moveBlocks);
+    if (addClickEvents != undefined && !addClickEvents) {
+      moveBlocks.push(element2.id);
+    } else {
+      addElementToMoveBlocks(element2, id, moveBlocks);
+    }
   }
 }
 
