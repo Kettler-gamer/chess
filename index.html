@@ -7,6 +7,7 @@
     <title>Chess</title>
     <script src="assets/scripts/chessPiecePathFinding.js" defer></script>
     <script src="assets/scripts/ai.js" defer></script>
+    <script src="assets/scripts/menu.js" defer></script>
     <script src="assets/scripts/chess.js" defer></script>
     <meta
       name="description"
@@ -16,7 +17,12 @@
   </head>
   <body>
     <div class="page-container">
-      <div class="page-menu"></div>
+      <div class="page-menu">
+        <div class="load-screen">
+          <p class="text">Loading...</p>
+          <div class="circle"></div>
+        </div>
+      </div>
       <div class="page-cover"></div>
       <div class="board-container">
         <div class="letters"></div>

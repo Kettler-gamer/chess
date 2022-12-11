@@ -11,47 +11,22 @@ let AITurn, chessPieces, playerIsWhite;
 let blackPieceTimer = 85,
   it = 0;
 
-pageMenu.innerHTML = `
-<div class="load-screen">
-  <p class="text">Loading...</p>
-  <div class="circle"></div>
-</div>
-<h1 class="page-title" hidden>Welcome to Chess!</h1>
-<button class="btn" onclick="startButtonClick()" hidden>Start</button>
-<button class="btn" hidden onclick="restartGameClick()">Restart</button>
-<div class="choice-menu" hidden>
-  <button class="btn" onclick="playAsWhite(true)">Play as White</button>
-  <button class="btn" onclick="playAsWhite(false)">Play as Black</button>
-</div>`;
+// pageMenu.innerHTML = `
+// <div class="load-screen">
+//   <p class="text">Loading...</p>
+//   <div class="circle"></div>
+// </div>
+// <h1 class="page-title" hidden>Welcome to Chess!</h1>
+// <button class="btn" onclick="startButtonClick()" hidden>Start</button>
+// <button class="btn" hidden onclick="restartGameClick()">Restart</button>`;
 
-getData();
-
-async function getData() {
+(async () => {
   await Promise.all([jsonData]).then(async (response) => {
     chessPieces = await response[0].json();
-  });
-}
-
-checkChessPieces();
-
-function checkChessPieces() {
-  if (chessPieces === undefined) {
-    setTimeout(checkChessPieces, 100);
-  } else {
-    pageMenu.children[0].hidden = true;
-    pageMenu.children[1].hidden = false;
-    pageMenu.children[1].style = "";
-    pageMenu.children[2].hidden = false;
+    setMainMenu();
     createPlayfield();
-  }
-}
-
-function startButtonClick() {
-  pageMenu.children[1].hidden = true;
-  pageMenu.children[2].hidden = true;
-  pageMenu.children[3].hidden = true;
-  pageMenu.children[4].hidden = false;
-}
+  });
+})();
 
 function playAsWhite(choice) {
   if (choice) {
@@ -67,15 +42,6 @@ function playAsWhite(choice) {
 function startGame() {
   pageMenu.style = "visibility: hidden;";
   setTimeout(setUpblackPiece, 0);
-}
-
-function restartGameClick() {
-  pageMenu.children[1].hidden = true;
-  pageMenu.children[3].hidden = true;
-  pageMenu.children[4].hidden = false;
-  pageCover.style = "";
-  removeAllPieces();
-  it = 0;
 }
 
 function removeAllPieces() {
@@ -210,12 +176,7 @@ function winConditionMet() {
       message = yellowKing === null ? "Player Wins!" : "AI Wins!";
     }
 
-    pageMenu.style = "";
-    pageMenu.children[1].textContent = message;
-    pageMenu.children[1].hidden = false;
-    pageMenu.children[2].hidden = true;
-    pageMenu.children[3].hidden = false;
-    pageMenu.children[4].hidden = true;
+    setGameOverScreen(message);
 
     return true;
   } else {
