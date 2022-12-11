@@ -351,7 +351,12 @@ function bondePiece(target, id, moveBlocks, attackBlocks, addClickEvents) {
 }
 
 function addElementToAttackBlocks(element, id, attackBlocks) {
-  const pieceCheck = playerIsWhite ? "svart" : "gul";
+  let pieceCheck;
+  if (gameMode == "AI") {
+    pieceCheck = playerIsWhite ? "svart" : "gul";
+  } else if (gameMode == "local") {
+    pieceCheck = whiteTurn ? "svart" : "gul";
+  }
   !id.includes(pieceCheck) && element.append(createSelectorImg("Red"));
 
   attackBlocks.push({
@@ -379,7 +384,12 @@ function checkElementForAttack(element, id) {
 }
 
 function addElementToMoveBlocks(element, id, moveBlocks) {
-  const pieceCheck = playerIsWhite ? "svart" : "gul";
+  let pieceCheck;
+  if (gameMode == "AI") {
+    pieceCheck = playerIsWhite ? "svart" : "gul";
+  } else if (gameMode == "local") {
+    pieceCheck = whiteTurn ? "svart" : "gul";
+  }
   !id.includes(pieceCheck) && element.append(createSelectorImg("Green"));
 
   moveBlocks.push({

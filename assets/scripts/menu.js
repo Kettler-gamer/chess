@@ -13,7 +13,7 @@ function setChoicesMenu() {
     <div class="choice-menu">
         <button class="btn" onclick="playAsWhite(true)">Play as White against AI</button>
         <button class="btn" onclick="playAsWhite(false)">Play as Black against AI</button>
-        <button class="btn" onclick="">Play local multiplayer</button>
+        <button class="btn" onclick="localMultiplayerClick()">Play local multiplayer</button>
     </div>`;
 }
 

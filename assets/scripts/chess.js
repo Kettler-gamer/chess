@@ -6,7 +6,11 @@ const pageCover = document.querySelector(".page-cover");
 const moveBlocks = [],
   attackBlocks = [];
 
+// AI variables
 let AITurn, chessPieces, playerIsWhite;
+
+// local variables
+let whiteTurn = true;
 
 let gameMode = ""; // modes: AI, local, online
 
@@ -20,6 +24,13 @@ let blackPieceTimer = 85,
     createPlayfield();
   });
 })();
+
+function localMultiplayerClick() {
+  playfield.parentElement.style = "";
+  gameMode = "local";
+  whiteTurn = true;
+  startGame();
+}
 
 function playAsWhite(choice) {
   if (choice) {
@@ -122,16 +133,29 @@ function createBasicPiece(id, img) {
 }
 
 function onChessPieceClick(event) {
-  if (AITurn) return;
   const target = event.target;
   const id = target.id;
-  if (
-    (!playerIsWhite && id.includes("gul")) ||
-    (playerIsWhite && id.includes("svart"))
-  )
-    return;
-  resetPlayfield();
-  checkPieceAlts(target, id, moveBlocks, attackBlocks);
+  switch (true) {
+    case gameMode == "AI":
+      if (AITurn) return;
+      if (
+        (!playerIsWhite && id.includes("gul")) ||
+        (playerIsWhite && id.includes("svart"))
+      )
+        return;
+      resetPlayfield();
+      checkPieceAlts(target, id, moveBlocks, attackBlocks);
+      break;
+    case gameMode == "local":
+      if (
+        (whiteTurn && id.includes("svart")) ||
+        (!whiteTurn && id.includes("gul"))
+      )
+        return;
+      resetPlayfield();
+      checkPieceAlts(target, id, moveBlocks, attackBlocks);
+      break;
+  }
 }
 
 function getNumsFromParentId(parentElement) {
@@ -150,12 +174,19 @@ function createSelectorImg(color) {
 
 function switchTurn() {
   if (!winConditionMet()) {
-    AITurn = !AITurn;
-    if (AITurn) {
-      pageCover.style = "";
-      setTimeout(AIMove, 1000);
-    } else {
-      pageCover.style = "visibility: hidden";
+    switch (true) {
+      case gameMode == "AI":
+        AITurn = !AITurn;
+        if (AITurn) {
+          pageCover.style = "";
+          setTimeout(AIMove, 1000);
+        } else {
+          pageCover.style = "visibility: hidden";
+        }
+        break;
+      case gameMode == "local":
+        whiteTurn = !whiteTurn;
+        break;
     }
   }
 }
