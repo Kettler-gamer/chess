@@ -8,17 +8,10 @@ const moveBlocks = [],
 
 let AITurn, chessPieces, playerIsWhite;
 
+let gameMode = ""; // modes: AI, local, online
+
 let blackPieceTimer = 85,
   it = 0;
-
-// pageMenu.innerHTML = `
-// <div class="load-screen">
-//   <p class="text">Loading...</p>
-//   <div class="circle"></div>
-// </div>
-// <h1 class="page-title" hidden>Welcome to Chess!</h1>
-// <button class="btn" onclick="startButtonClick()" hidden>Start</button>
-// <button class="btn" hidden onclick="restartGameClick()">Restart</button>`;
 
 (async () => {
   await Promise.all([jsonData]).then(async (response) => {
@@ -36,6 +29,7 @@ function playAsWhite(choice) {
   }
   playerIsWhite = choice;
   AITurn = playerIsWhite ? false : true;
+  gameMode = "AI";
   startGame();
 }
 
@@ -61,24 +55,15 @@ function setUpblackPiece() {
   }
 
   const block = document.querySelector("#" + chessPieces[it].startBlock);
-
   const piece = createBasicPiece(chessPieces[it].id, chessPieces[it].img);
   piece.style = playerIsWhite
     ? "scale: -1;"
     : "scale: -1; transform: translateX(1px);";
 
-  if (!playerIsWhite) {
-    piece.addEventListener("click", onChessPieceClick);
-    piece.classList.add("chess-piece-hover");
-    AIopponentPieces.push(piece);
-  } else {
-    AIPieces.push(piece);
-  }
+  checkGameMode(piece, "black");
 
   block.append(piece);
-
   it++;
-
   setTimeout(setUpblackPiece, blackPieceTimer);
 }
 
@@ -94,22 +79,34 @@ function setUpYellowPieces() {
   }
 
   const block = document.querySelector("#" + chessPieces[it].startBlock);
-
   const piece = createBasicPiece(chessPieces[it].id, chessPieces[it].img);
 
-  if (playerIsWhite) {
-    piece.addEventListener("click", onChessPieceClick);
-    piece.classList.add("chess-piece-hover");
-    AIopponentPieces.push(piece);
-  } else {
-    AIPieces.push(piece);
-  }
+  checkGameMode(piece, "white");
 
   block.append(piece);
-
   it++;
-
   setTimeout(setUpYellowPieces, blackPieceTimer);
+}
+
+function checkGameMode(piece, pieceColor) {
+  switch (true) {
+    case gameMode == "AI":
+      if (
+        (playerIsWhite && pieceColor == "white") ||
+        (!playerIsWhite && pieceColor == "black")
+      ) {
+        piece.addEventListener("click", onChessPieceClick);
+        piece.classList.add("chess-piece-hover");
+        AIopponentPieces.push(piece);
+      } else {
+        AIPieces.push(piece);
+      }
+      break;
+    case gameMode == "local":
+      piece.addEventListener("click", onChessPieceClick);
+      piece.classList.add("chess-piece-hover");
+      break;
+  }
 }
 
 function createBasicPiece(id, img) {
