@@ -198,10 +198,18 @@ function winConditionMet() {
   if (blackKing === null || yellowKing === null) {
     let message;
 
-    if (playerIsWhite) {
-      message = blackKing === null ? "Player Wins!" : "AI Wins!";
-    } else {
-      message = yellowKing === null ? "Player Wins!" : "AI Wins!";
+    switch (true) {
+      case gameMode == "AI":
+        if (playerIsWhite) {
+          message = blackKing === null ? "Player Wins!" : "AI Wins!";
+        } else {
+          message = yellowKing === null ? "Player Wins!" : "AI Wins!";
+        }
+        break;
+      case gameMode == "local":
+        message =
+          blackKing === null ? "White pieces win!" : "Black pieces win!";
+        break;
     }
 
     setGameOverScreen(message);
