@@ -67,9 +67,11 @@ function setUpblackPiece() {
 
   const block = document.querySelector("#" + chessPieces[it].startBlock);
   const piece = createBasicPiece(chessPieces[it].id, chessPieces[it].img);
-  piece.style = playerIsWhite
-    ? "scale: -1;"
-    : "scale: -1; transform: translateX(1px);";
+
+  piece.style =
+    playerIsWhite || gameMode == "local"
+      ? "scale: -1;"
+      : "scale: -1; transform: translateX(1px);";
 
   checkGameMode(piece, "black");
 
