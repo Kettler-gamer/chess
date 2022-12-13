@@ -14,7 +14,19 @@ function setChoicesMenu() {
         <button class="btn" onclick="playAsWhite(true)">Play as White against AI</button>
         <button class="btn" onclick="playAsWhite(false)">Play as Black against AI</button>
         <button class="btn" onclick="localMultiplayerClick()">Play local multiplayer</button>
+        <button class="btn" onclick="onlinePlayClick()">Play online</button>
     </div>`;
+}
+
+function onlinePlayClick() {
+  pageMenu.innerHTML = `
+  <input class="server-adress-input"/>
+  <button class="btn" onclick="attemptConnection()">Connect</button>`;
+}
+
+function attemptConnection() {
+  const adress = document.querySelector(".server-adress-input").value;
+  setUpSocketConnection(adress);
 }
 
 function setGameOverScreen(winMessage) {

@@ -12,6 +12,10 @@ let AITurn, chessPieces, playerIsWhite;
 // local variables
 let whiteTurn = true;
 
+// online variables
+let amIWhite = true,
+  myTurn = false;
+
 let gameMode = ""; // modes: AI, local, online
 
 let blackPieceTimer = 85,
@@ -119,6 +123,15 @@ function checkGameMode(piece, pieceColor) {
       piece.addEventListener("click", onChessPieceClick);
       piece.classList.add("chess-piece-hover");
       break;
+    case gameMode == "online":
+      if (
+        (amIWhite && pieceColor == "black") ||
+        (!amIWhite && pieceColor == "white")
+      )
+        return;
+      piece.addEventListener("click", onChessPieceClick);
+      piece.classList.add("chess-piece-hover");
+      break;
   }
 }
 
@@ -156,6 +169,9 @@ function onChessPieceClick(event) {
         return;
       resetPlayfield();
       checkPieceAlts(target, id, moveBlocks, attackBlocks);
+      break;
+    case gameMode == "online":
+      if (!myTurn) return;
       break;
   }
 }
