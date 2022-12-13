@@ -408,6 +408,10 @@ function moveHere(pieceId, blockId) {
 
   document.querySelector("#" + blockId).append(chessPiece);
 
+  if (gameMode == "online") {
+    socket.send(`moved ${pieceId} ${blockId}`);
+  }
+
   resetPlayfield();
 
   const sound = new Audio("assets/sounds/move.wav");

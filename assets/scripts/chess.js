@@ -172,6 +172,8 @@ function onChessPieceClick(event) {
       break;
     case gameMode == "online":
       if (!myTurn) return;
+      resetPlayfield();
+      checkPieceAlts(target, id, moveBlocks, attackBlocks);
       break;
   }
 }
@@ -204,6 +206,9 @@ function switchTurn() {
         break;
       case gameMode == "local":
         whiteTurn = !whiteTurn;
+        break;
+      case gameMode == "online":
+        myTurn = false;
         break;
     }
   }

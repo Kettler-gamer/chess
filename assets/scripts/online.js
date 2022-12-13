@@ -9,7 +9,6 @@ function setUpSocketConnection(adress) {
 
   socket.onmessage = (event) => {
     const data = event.data;
-    console.log(data);
     commandHandler(data);
   };
 
@@ -36,10 +35,27 @@ function commandHandler(command) {
       gameMode = "online";
       if (command.includes("white")) {
         amIWhite = true;
+        myTurn = true;
       } else {
         amIWhite = false;
+        myTurn = false;
+        playfield.parentElement.style = "transform: rotateZ(180deg)";
       }
       startGame();
       break;
+    case command.includes("moved"):
+      synchronizeMove(command);
+      break;
   }
+}
+
+function synchronizeMove(command) {
+  const commandArr = command.split(" ");
+  const piece = document.querySelector(`#${commandArr[1]}`);
+  const block = document.querySelector(`#${commandArr[2]}`);
+  if (block.children.length > 0) {
+    block.childNodes[0].remove();
+  }
+  block.append(piece);
+  myTurn = true;
 }
