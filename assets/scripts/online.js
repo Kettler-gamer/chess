@@ -1,7 +1,7 @@
 let socket;
 
 function setUpSocketConnection(adress) {
-  socket = new WebSocket("ws://" + adress);
+  socket = new WebSocket("wss://" + adress);
 
   socket.onopen = function (e) {
     console.log("Connection established");
