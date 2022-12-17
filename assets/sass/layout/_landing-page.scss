@@ -265,7 +265,7 @@ html,
         .board-container{
             max-width: none;
             width: 740px;
-            margin: 10vh auto;
+            margin: 0 auto;
             .letters{
                 height: 75px;
                 padding: 0 50px;
@@ -305,7 +305,7 @@ html,
     }
 }
 
-@media screen and (min-width:1200px) and (min-height:1200px) {
+@media screen and (min-width:2000px) {
     .page-container{
         font-size: 2rem;
         width: 100%;
