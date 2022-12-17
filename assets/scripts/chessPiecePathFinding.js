@@ -409,7 +409,7 @@ function moveHere(pieceId, blockId) {
   document.querySelector("#" + blockId).append(chessPiece);
 
   if (gameMode == "online") {
-    socket.send(`moved ${pieceId} ${blockId}`);
+    socket.send(`moved-piece ${currentRoomId} ${pieceId} ${blockId}`);
   }
 
   resetPlayfield();

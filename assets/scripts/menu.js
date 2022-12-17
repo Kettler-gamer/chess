@@ -36,6 +36,30 @@ function setGameOverScreen(winMessage) {
   <button class="btn" onclick="restartGameClick()">Restart</button>`;
 }
 
+function setOnlineRoomsScreen(command) {
+  const rooms = command.split(" ");
+  pageMenu.innerHTML = `
+    <h1 class="page-title">Lobby</h1>
+  `;
+  for (let i = 0; i < rooms.length; i++) {
+    const roomSize = rooms[i];
+    pageMenu.innerHTML += `
+    <div>
+      <p>Room: ${i + 1}</p>
+      <p>Current players: ${roomSize}</p>
+      <button onclick="connectToRoom(${i})">Connect to room</button>
+    </div>`;
+  }
+}
+
+function setConnectedRoomPage(room) {
+  pageMenu.innerHTML = `
+  <h2>Connected to Room: ${room}</h2>
+  <p>Waiting for other player...</p>
+  <button onclick="disconnectFromRoom()">Leave room</button>
+  `;
+}
+
 function restartGameClick() {
   setChoicesMenu();
   pageCover.style = "";

@@ -1,4 +1,5 @@
-let socket;
+let socket,
+  currentRoomId = -1;
 
 function setUpSocketConnection(adress) {
   socket = new WebSocket("ws://" + adress);
@@ -46,7 +47,34 @@ function commandHandler(command) {
     case command.includes("moved"):
       synchronizeMove(command);
       break;
+    case command == "full server":
+      console.log("Server is full! Sorry for the inconvenience!");
+      break;
+    case command.startsWith("rooms"):
+      if (currentRoomId != -1) return;
+      setOnlineRoomsScreen(command.replace("rooms ", ""));
+      break;
+    case command.startsWith("connected-room"):
+      const roomId = Number(command.replace("connected-room ", ""));
+      onConnectedToRoom(roomId);
+      break;
+    default:
+      console.log(command);
   }
+}
+
+function disconnectFromRoom() {
+  socket.send("disconnect-room " + currentRoomId);
+  currentRoomId = -1;
+}
+
+function onConnectedToRoom(roomId) {
+  currentRoomId = roomId;
+  setConnectedRoomPage(currentRoomId + 1);
+}
+
+function connectToRoom(roomId) {
+  socket.send("join-room " + roomId);
 }
 
 function synchronizeMove(command) {
