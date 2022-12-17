@@ -89,6 +89,7 @@ html,
         .room-container{
             background-color: $CdarkBrown;
             display: flex;
+            max-width: 500px;
             padding: 1em 0;
             margin: 0 0.5em;
             border-radius: 0.5em;

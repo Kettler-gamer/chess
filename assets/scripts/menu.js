@@ -73,7 +73,7 @@ function setLostServerConnectionPage() {
 function setOpponentLeftScreen() {
   pageMenu.style = "";
   pageMenu.innerHTML = `
-  <h2>Your opponent left the room!</h2>
+  <h2 class="page-title">Your opponent left the room!</h2>
   <button class="btn" onclick="setMainMenu()">Return to main menu</button>
   `;
 }
