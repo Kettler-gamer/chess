@@ -206,13 +206,23 @@ function switchTurn() {
         }
         break;
       case gameMode == "local":
+        removeRedFlashingFromKings();
         whiteTurn = !whiteTurn;
+        isKingInCheck();
         break;
       case gameMode == "online":
+        removeRedFlashingFromKings();
         myTurn = false;
         break;
     }
   }
+}
+
+function removeRedFlashingFromKings() {
+  const whiteKing = document.querySelector("#kung-gul");
+  const blackKing = document.querySelector("#kung-svart");
+  whiteKing.classList.remove("red-flash");
+  blackKing.classList.remove("red-flash");
 }
 
 function winConditionMet() {
@@ -297,4 +307,63 @@ function createSideCharacters(parent, letter) {
   charDiv1.append(charP1);
 
   parent.append(charDiv1);
+}
+
+function isKingInCheck() {
+  switch (true) {
+    case gameMode == "local":
+      let attacks;
+      if (whiteTurn) {
+        attacks = getOpponentAttacks("svart");
+      } else {
+        attacks = getOpponentAttacks("gul");
+      }
+      if (doesAttacksContainKing(attacks)) {
+        const kingId = whiteTurn ? "kung-gul" : "kung-svart";
+        const king = document.querySelector("#" + kingId);
+        king.classList.add("red-flash");
+      }
+      break;
+    case gameMode == "online":
+      let onlineAttacks;
+      if (myTurn) {
+        if (amIWhite) {
+          onlineAttacks = getOpponentAttacks("svart");
+        } else {
+          onlineAttacks = getOpponentAttacks("gul");
+        }
+        if (doesAttacksContainKing(onlineAttacks)) {
+          const kingId = amIWhite ? "kung-gul" : "kung-svart";
+          const king = document.querySelector("#" + kingId);
+          king.classList.add("red-flash");
+        }
+      }
+      break;
+  }
+}
+
+function doesAttacksContainKing(attacks) {
+  for (let block of attacks) {
+    let docBlock = document.querySelector("#" + block);
+    if (docBlock.children[0].id.includes("kung")) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function getOpponentAttacks(pieceColor) {
+  const attacks = [];
+  for (let blockRow of playfield.children) {
+    for (let block of blockRow.children) {
+      if (block.children.length > 0) {
+        let piece = block.children[0];
+        if (piece.id.includes(pieceColor)) {
+          checkPieceAlts(piece, piece.id, [], attacks, [], false);
+        }
+      }
+    }
+  }
+
+  return attacks;
 }

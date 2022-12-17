@@ -22,7 +22,7 @@ function AIMove() {
 
   setOpponentsChoices();
 
-  if (isKingInCheck()) {
+  if (AIisKingInCheck()) {
     protectKing();
   } else if (AIattackBlocks.length > 0) {
     checkForAttack(AIattackBlocks);
@@ -153,7 +153,7 @@ function resetAIBlocks() {
   });
 }
 
-function isKingInCheck() {
+function AIisKingInCheck() {
   filteredKingAttacks = AIOpponentAttackBlocks.filter((element) => {
     return element.element.children[0].id.includes("kung");
   });

@@ -215,6 +215,18 @@ html,
                         background-color: rgba(255, 255, 0, 0.349);
                     }
 
+                    .red-flash{
+                        animation-name: red-flashing;
+                        animation-duration: 0.5s;
+                        animation-iteration-count: infinite;
+                    }
+
+                    @keyframes red-flashing {
+                        0%{ background-color: transparent;}
+                        50%{ background-color: rgba(255, 0, 0, 0.7);}
+                        100%{ background-color: transparent;}
+                    }
+
                     .selector-img{
                         position: absolute;
                         top: 0;

@@ -307,8 +307,6 @@ function bondePiece(target, id, moveBlocks, attackBlocks, addClickEvents) {
   for (let i = 0; i < elLeftRight.length; i++) {
     if (checkElementForAttack(elLeftRight[i], id))
       if (addClickEvents != undefined && !addClickEvents) {
-        console.log("Bonde check");
-        console.log(elLeftRight[i]);
         attackBlocks.push(elLeftRight[i].id);
       } else {
         addElementToAttackBlocks(elLeftRight[i], id, attackBlocks);

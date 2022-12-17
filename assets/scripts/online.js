@@ -19,8 +19,6 @@ function setUpSocketConnection(adress) {
         `[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`
       );
     } else {
-      // e.g. server process killed or network down
-      // event.code is usually 1006 in this case
       socket = null;
       removeAllPieces();
       setLostServerConnectionPage();
@@ -102,4 +100,5 @@ function synchronizeMove(command) {
   block.append(piece);
   myTurn = true;
   winConditionMet();
+  isKingInCheck();
 }
