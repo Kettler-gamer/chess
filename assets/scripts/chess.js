@@ -50,6 +50,7 @@ function playAsWhite(choice) {
 
 function startGame() {
   pageMenu.style = "visibility: hidden;";
+  it = 0;
   setTimeout(setUpblackPiece, 0);
 }
 
@@ -232,6 +233,15 @@ function winConditionMet() {
       case gameMode == "local":
         message =
           blackKing === null ? "White pieces win!" : "Black pieces win!";
+        break;
+      case gameMode == "online":
+        socket.close();
+        socket = null;
+        currentRoomId = -1;
+        message =
+          (blackKing === null && amIWhite) || (yellowKing === null && !amIWhite)
+            ? "You win!"
+            : "You loose!";
         break;
     }
 

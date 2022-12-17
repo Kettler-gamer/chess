@@ -20,7 +20,8 @@ function setChoicesMenu() {
 
 function onlinePlayClick() {
   pageMenu.innerHTML = `
-  <input class="server-adress-input"/>
+  <input class="server-adress-input" placeholder="Type server adress here..."/>
+  <p class="page-title" id="serverMessage" hidden></p>
   <button class="btn" onclick="attemptConnection()">Connect</button>`;
 }
 
@@ -44,19 +45,36 @@ function setOnlineRoomsScreen(command) {
   for (let i = 0; i < rooms.length; i++) {
     const roomSize = rooms[i];
     pageMenu.innerHTML += `
-    <div>
+    <div class="room-container">
       <p>Room: ${i + 1}</p>
       <p>Current players: ${roomSize}</p>
-      <button onclick="connectToRoom(${i})">Connect to room</button>
+      <button class="btn" onclick="connectToRoom(${i})" 
+      ${roomSize == 2 ? "disabled" : ""}>Connect to room</button>
     </div>`;
   }
 }
 
 function setConnectedRoomPage(room) {
   pageMenu.innerHTML = `
-  <h2>Connected to Room: ${room}</h2>
-  <p>Waiting for other player...</p>
-  <button onclick="disconnectFromRoom()">Leave room</button>
+  <h2 class="page-title">Connected to Room: ${room}</h2>
+  <p class="page-title">Waiting for other player...</p>
+  <button class="btn" onclick="disconnectFromRoom()">Leave room</button>
+  `;
+}
+
+function setLostServerConnectionPage() {
+  pageMenu.style = "";
+  pageMenu.innerHTML = `
+  <h2 class="page-title">Server connection lost!</h2>
+  <button class="btn" onclick="setMainMenu()">Return to main menu</button>
+  `;
+}
+
+function setOpponentLeftScreen() {
+  pageMenu.style = "";
+  pageMenu.innerHTML = `
+  <h2>Your opponent left the room!</h2>
+  <button class="btn" onclick="setMainMenu()">Return to main menu</button>
   `;
 }
 

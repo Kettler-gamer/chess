@@ -21,6 +21,9 @@ function setUpSocketConnection(adress) {
     } else {
       // e.g. server process killed or network down
       // event.code is usually 1006 in this case
+      socket = null;
+      removeAllPieces();
+      setLostServerConnectionPage();
       console.log("Connection failed! Please check your connection!");
     }
   };
@@ -40,15 +43,20 @@ function commandHandler(command) {
       } else {
         amIWhite = false;
         myTurn = false;
-        playfield.parentElement.style = "transform: rotateZ(180deg)";
       }
+      playfield.parentElement.style = amIWhite
+        ? ""
+        : "transform: rotateZ(180deg)";
       startGame();
       break;
     case command.includes("moved"):
       synchronizeMove(command);
       break;
     case command == "full server":
-      console.log("Server is full! Sorry for the inconvenience!");
+      const serverMessage = document.querySelector("#serverMessage");
+      serverMessage.textContent =
+        "Server is full! Sorry for the inconvenience!";
+      serverMessage.hidden = false;
       break;
     case command.startsWith("rooms"):
       if (currentRoomId != -1) return;
@@ -57,6 +65,13 @@ function commandHandler(command) {
     case command.startsWith("connected-room"):
       const roomId = Number(command.replace("connected-room ", ""));
       onConnectedToRoom(roomId);
+      break;
+    case command.startsWith("opponent-disconnected"):
+      currentRoomId = -1;
+      socket.close();
+      removeAllPieces();
+      socket = null;
+      setOpponentLeftScreen();
       break;
     default:
       console.log(command);
@@ -86,4 +101,5 @@ function synchronizeMove(command) {
   }
   block.append(piece);
   myTurn = true;
+  winConditionMet();
 }
