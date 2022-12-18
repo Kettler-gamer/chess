@@ -19,7 +19,6 @@ html,
     .page-menu{
         position: absolute;
         display: flex;
-        // flex-direction: column;
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
@@ -28,8 +27,8 @@ html,
         top: 0;
         width: 100%;
         min-height: 100%;
-        // margin-top: -5em;
         padding-bottom: 5em;
+        margin: 0 auto;
 
         .load-screen{
             position: absolute;
@@ -68,6 +67,7 @@ html,
         
         .page-title{
             border-radius: 0.25em;
+            text-align: center;
         }
         
         .server-adress-input,
@@ -84,6 +84,9 @@ html,
         .choice-menu{
             width: 175px;
             margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .room-container{
@@ -93,13 +96,12 @@ html,
             padding: 1em 0;
             margin: 0 0.5em;
             border-radius: 0.5em;
-            // width: 20%;
             flex-wrap: wrap;
             flex: 0 0 40%;
             justify-content: center;
             p{
                 color: $ClightBrown;
-                margin: 0 10%;
+                margin: 0 15%;
             }
             .btn{
                 flex: 0 0 50%;

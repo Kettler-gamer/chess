@@ -26,6 +26,7 @@ html,
   width: 100%;
   min-height: 100%;
   padding-bottom: 5em;
+  margin: 0 auto;
 }
 .page-container .page-menu .load-screen {
   position: absolute;
@@ -77,6 +78,7 @@ html,
 }
 .page-container .page-menu .page-title {
   border-radius: 0.25em;
+  text-align: center;
 }
 .page-container .page-menu .server-adress-input,
 .page-container .page-menu .btn {
@@ -90,6 +92,9 @@ html,
 .page-container .page-menu .choice-menu {
   width: 175px;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 .page-container .page-menu .room-container {
   background-color: rgb(29, 14, 0);
@@ -104,7 +109,7 @@ html,
 }
 .page-container .page-menu .room-container p {
   color: rgb(187, 91, 2);
-  margin: 0 10%;
+  margin: 0 15%;
 }
 .page-container .page-menu .room-container .btn {
   flex: 0 0 50%;
